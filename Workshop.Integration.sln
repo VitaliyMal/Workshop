@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.Integration", "Workshop.Integration\Workshop.Integration.csproj", "{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.Core", "Workshop.Core\Workshop.Core.csproj", "{C330443C-A73D-4BDE-911D-CA208AF7363C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F333F77F-2A65-4AF3-B7A0-DCB3CC6512FC}
+	EndGlobalSection
+EndGlobal
