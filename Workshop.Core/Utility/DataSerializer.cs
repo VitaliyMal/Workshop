@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Workshop.Core
+namespace Workshop.Core.Utility
 {
     public static class DataSerializer
     {
