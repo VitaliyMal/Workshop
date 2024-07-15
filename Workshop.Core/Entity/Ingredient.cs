@@ -1,4 +1,6 @@
-﻿namespace Workshop.Core.Entity
+﻿using System.Xml.Linq;
+
+namespace Workshop.Core.Entity
 {
     /// <summary>
     /// Ингредиент
@@ -12,6 +14,12 @@
         public int MinimalAmount { get; set; } = minimalAmount;
         public int Cost { get; set; } = cost;
         public IngredientType Type { get; set; } = type;
+
+        
+        public override string ToString()
+        {
+            return string.Join(",", Convert.ToString(Id), Title, Amount, MinimalAmount, Cost, Type);
+        }
     }
 
     public enum IngredientType

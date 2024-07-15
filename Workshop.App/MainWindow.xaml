@@ -1,0 +1,71 @@
+﻿<Window x:Class="Workshop.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Workshop.App"
+        mc:Ignorable="d"
+        Title="Workshop App" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel 
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            >
+            <TextBox 
+                FontSize="30" 
+                Background="LemonChiffon"
+                Margin="10"
+                x:Name="Input"
+                Text="{Binding Input}"/>
+            <TextBlock 
+                FontSize="30" 
+                Background="LightCoral"
+                Margin="10"
+                x:Name="Output"
+                Text="{Binding Output}"
+                />
+                
+            <Button 
+                Height="100" 
+                Width="300"
+                Content="Нажми меня"
+                Background="Aquamarine"
+                FontSize="30"
+                BorderBrush="Transparent"            
+                Margin="10"                
+                x:Name="PressMeButton"
+                Command="{Binding ShowCommand}"
+            />
+
+            <Button 
+                Height="100" 
+                Width="300"
+                Content="Не жми меня"
+                Background="Red"
+                FontSize="30"
+                BorderBrush="Transparent"            
+                Margin="10"                
+                x:Name="DontPressMeButton"
+                Command="{Binding ClearCommand}"
+                />
+            <ListBox 
+                ItemsSource="{Binding CustomerList}"
+                SelectedItem="{Binding SelectedCustomer}"
+                >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</Window>

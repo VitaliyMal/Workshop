@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.Integration", "Workshop.Integration\Workshop.Integration.csproj", "{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Integration", "Workshop.Integration\Workshop.Integration.csproj", "{34EDEB53-9AEC-4C4C-A086-3508EF3E774D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.Core", "Workshop.Core\Workshop.Core.csproj", "{C330443C-A73D-4BDE-911D-CA208AF7363C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Core", "Workshop.Core\Workshop.Core.csproj", "{C330443C-A73D-4BDE-911D-CA208AF7363C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.App", "Workshop.App\Workshop.App.csproj", "{1EE478A8-9706-4890-A9F2-EE383B14E469}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D} = {34EDEB53-9AEC-4C4C-A086-3508EF3E774D}
+		{C330443C-A73D-4BDE-911D-CA208AF7363C} = {C330443C-A73D-4BDE-911D-CA208AF7363C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,10 @@ Global
 		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C330443C-A73D-4BDE-911D-CA208AF7363C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
