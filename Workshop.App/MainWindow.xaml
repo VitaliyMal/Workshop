@@ -5,67 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workshop.App"
         mc:Ignorable="d"
-        Title="Workshop App" Height="450" Width="800">
+         Title="MainWindow"     WindowState="Maximized"
+    >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <StackPanel 
-            Grid.Column="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            >
-            <TextBox 
-                FontSize="30" 
-                Background="LemonChiffon"
-                Margin="10"
-                x:Name="Input"
-                Text="{Binding Input}"/>
-            <TextBlock 
-                FontSize="30" 
-                Background="LightCoral"
-                Margin="10"
-                x:Name="Output"
-                Text="{Binding Output}"
-                />
-                
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
             <Button 
-                Height="100" 
-                Width="300"
-                Content="Нажми меня"
-                Background="Aquamarine"
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Заказчик"
+                Background="Purple"
                 FontSize="30"
-                BorderBrush="Transparent"            
-                Margin="10"                
-                x:Name="PressMeButton"
-                Command="{Binding ShowCommand}"
-            />
-
-            <Button 
-                Height="100" 
-                Width="300"
-                Content="Не жми меня"
-                Background="Red"
-                FontSize="30"
-                BorderBrush="Transparent"            
-                Margin="10"                
-                x:Name="DontPressMeButton"
-                Command="{Binding ClearCommand}"
+                BorderBrush="Transparent"
+                x:Name="CustomerPage"
+                Click="CustomerPage_Click"                
                 />
-            <ListBox 
-                ItemsSource="{Binding CustomerList}"
-                SelectedItem="{Binding SelectedCustomer}"
-                >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
-
-
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Button 
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Ингредиенты"
+                Background="Purple"
+                FontSize="30"
+                BorderBrush="Transparent"
+                x:Name="IngredientPage"
+                Click="IngredientPage_Click"
+                />             
         </StackPanel>
+        <StackPanel Margin="0 80 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button 
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Заказ"
+                Background="Purple"
+                FontSize="30"
+                BorderBrush="Transparent"
+                x:Name="OrderPage"
+                Click="OrderPage_Click"
+                />
+            <Button 
+                Margin="10 10 10 0"
+                Height="70"
+                Width="250"
+                Content="Изделие"
+                Background="Purple"
+                FontSize="30"
+                BorderBrush="Transparent"
+                x:Name="ProductPage"
+                Click="ProductPage_Click"
+                />
+        </StackPanel>
+        <Frame x:Name="Main"
+                   Margin="0,160,0,0"
+                   NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

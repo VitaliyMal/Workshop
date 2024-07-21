@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,12 @@ namespace Workshop.Core.Entity
     /// Заказчик
     /// </summary>
 
-    public class Customer(int id, string name = "", string lastName = "", string adress = "", string login = "", string password = "")
+    public class Customer(string name = "", string lastName = "", string adress = "", string login = "", string password = "")
     {
-        public int Id { get; set; } = id;
+        public static int _idCounter=0;
+
+        [JsonProperty("Id")]
+        public int Id { get; set; } = _idCounter;
         public string Name { get; set; } = name;
         public string LastName { get; set; } = lastName;
         public string Adress { get; set; } = adress;

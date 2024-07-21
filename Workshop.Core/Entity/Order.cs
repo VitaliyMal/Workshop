@@ -1,4 +1,6 @@
-﻿namespace Workshop.Core.Entity
+﻿using Newtonsoft.Json;
+
+namespace Workshop.Core.Entity
 {
     public enum State
     {
@@ -11,10 +13,12 @@
     /// <summary>
     /// Заказ
     /// </summary>
-    public class Order(int orderId, int customerId = 0, State state = 0, List<Product> products = null)
+    public class Order(int customerId = 0, State state = 0, List<Product> products = null)
     {
+        public static int _idCounter = 0;
 
-        public int OrderId { get; set; } = orderId;
+        [JsonProperty("OrderId")]
+        public int OrderId { get; set; } = _idCounter;
 
         public int CustomerId { get; set; } = customerId;
 
@@ -22,6 +26,10 @@
 
         public List<Product> Products { get; set; } = products;
 
+        public override string ToString()
+        {
+            return string.Join(",", Convert.ToString(OrderId), Convert.ToString(customerId), Convert.ToString(State), Products);
+        }
 
 
     }
