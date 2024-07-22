@@ -36,6 +36,7 @@ namespace Workshop.App.ViewModels
             set
             {
                 _selectedCustomer = value;
+                Input = value.Name;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
