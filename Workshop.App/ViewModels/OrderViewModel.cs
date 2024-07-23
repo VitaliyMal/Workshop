@@ -55,7 +55,7 @@ namespace Workshop.App.ViewModels
                   (addCommand = new RelayCommand(obj =>
                   {
                       orderService.Create(
-                          new Order(Convert.ToInt32(Input)) // тут возможны проблемы с вводом
+                          new Order(Convert.ToInt32( Input)) // тут возможны проблемы с вводом
                           );
                       OrderList = new ObservableCollection<Order>(orderService.GetAll());
                   }));

@@ -27,7 +27,6 @@ namespace Workshop.App
 
         public MainWindow()
         {
-
             InitializeComponent();
         }
 

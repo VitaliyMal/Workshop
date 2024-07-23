@@ -41,7 +41,7 @@
     HorizontalAlignment="Center"
     VerticalAlignment="Center"
     >
-            <TextBox 
+            <!--<TextBox 
         FontSize="30" 
         Background="LightGray"
         Margin="10"
@@ -52,7 +52,7 @@
         Background="LightGreen"
         Margin="10"
         x:Name="SelectedCustomerTitle"
-        Text="{Binding Path=SelectedCustomer.LastName}"/>
+        Text="{Binding Path=SelectedCustomer.LastName}"/>-->
             <Button 
         Margin="10 10 10 0"
         Height="100"
@@ -61,8 +61,8 @@
         Background="Coral"
         FontSize="30"
         BorderBrush="Transparent"
-        x:Name="Add"
-        Command="{Binding AddCommand}"
+        x:Name="Add"        
+        Click="Add_Click_Window"
         />
             <Button 
         Margin="10 10 10 0"

@@ -23,10 +23,17 @@ namespace Workshop.App
     /// </summary>
     public partial class CustomerPage : Page
     {
+        
         public CustomerPage(CustomerViewModel viewModel)
-        {
+        {            
             DataContext = viewModel;
             InitializeComponent();
+        }
+
+        private void Add_Click_Window(object sender, RoutedEventArgs e)
+        {
+            New_Customer_Window new_Customer_Window = new New_Customer_Window(/*CustomerViewModel pageViewModel*/);
+            Nullable<bool> dialogResult = new_Customer_Window.ShowDialog();
         }
     }
 }
