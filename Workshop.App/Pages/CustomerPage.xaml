@@ -61,7 +61,8 @@
         Background="Coral"
         FontSize="30"
         BorderBrush="Transparent"
-        x:Name="Add"        
+        x:Name="Add"    
+        Command="{Binding AddCommand}"
         Click="Add_Click_Window"
         />
             <Button 

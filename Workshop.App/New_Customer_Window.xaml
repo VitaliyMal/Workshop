@@ -17,13 +17,13 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-
+        
         <TextBlock>Введите данные нового заказчика:</TextBlock>
-        <TextBox Name="Name" Grid.Row="1" MinWidth="250">Имя</TextBox>
-        <TextBox Name="LastName" Grid.Row="2" MinWidth="250">Фамилия</TextBox>
-        <TextBox Name="Adress" Grid.Row="3" MinWidth="250">Адрес</TextBox>
-        <TextBox Name="Login" Grid.Row="4" MinWidth="250">Логин</TextBox>
-        <TextBox Name="Password" Grid.Row="5" MinWidth="250">Пароль</TextBox>
+        <TextBox x:Name="Name" Grid.Row="1" MinWidth="250" Text="{Binding Path=Name}"/>
+        <TextBox x:Name="LastName" Grid.Row="2" MinWidth="250">Фамилия</TextBox>
+        <TextBox x:Name="Adress" Grid.Row="3" MinWidth="250">Адрес</TextBox>
+        <TextBox x:Name="Login" Grid.Row="4" MinWidth="250">Логин</TextBox>
+        <TextBox x:Name="Password" Grid.Row="5" MinWidth="250">Пароль</TextBox>
 
         <WrapPanel Grid.Row="6" HorizontalAlignment="Right" Margin="0,15,0,0">
             <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="0,0,10,0">OK</Button>

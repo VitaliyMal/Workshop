@@ -8,11 +8,23 @@ using Workshop.App.Core;
 using Workshop.Core.Service;
 using Workshop.Core;
 using Workshop.Core.Entity;
+using System.Windows;
 
 namespace Workshop.App.ViewModels
 {
     public class CustomerViewModel : ObservableObject
     {
+        private string _name = string.Empty;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }        
+        
         private string _input = string.Empty;
         public string Input
         {
@@ -56,7 +68,7 @@ namespace Workshop.App.ViewModels
                   (addCommand = new RelayCommand(obj =>
                   {
                       customerService.Create(
-                          new Customer(Input)
+                          new Customer(Name)
                           );
                       CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
                   }));
