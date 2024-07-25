@@ -23,16 +23,49 @@ namespace Workshop.App.ViewModels
                 _name = value;
                 OnPropertyChanged("Name");
             }
-        }        
-        
-        private string _input = string.Empty;
-        public string Input
+        }
+
+        private string _lastName = string.Empty;
+        public string LastName
         {
-            get => _input;
+            get => _lastName;
             set
             {
-                _input = value;
-                OnPropertyChanged("Input");
+                _lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }
+
+        private string _adress = string.Empty;
+        public string Adress
+        {
+            get => _adress;
+            set
+            {
+                _adress = value;
+                OnPropertyChanged("Adress");
+            }
+        }
+
+        private string _login = string.Empty;
+        public string Login
+        {
+            get => _login;
+            set
+            {
+                _login = value;
+                OnPropertyChanged("Login");
+            }
+        }
+
+        private string _password = string.Empty;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                OnPropertyChanged("Password");
             }
         }
 
@@ -48,7 +81,6 @@ namespace Workshop.App.ViewModels
             set
             {
                 _selectedCustomer = value;
-                Input = value.Name;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
@@ -68,7 +100,7 @@ namespace Workshop.App.ViewModels
                   (addCommand = new RelayCommand(obj =>
                   {
                       customerService.Create(
-                          new Customer(Name)
+                          new Customer(Name, LastName, Adress, Login, Password)
                           );
                       CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
                   }));
@@ -99,11 +131,11 @@ namespace Workshop.App.ViewModels
                 return editCommand ??
                   (editCommand = new RelayCommand(obj =>
                   {
-                      SelectedCustomer.LastName = Input;
-                      SelectedCustomer.Name = Input;
-                      SelectedCustomer.Adress = Input;
-                      SelectedCustomer.Login = Input;
-                      SelectedCustomer.Password = Input;
+                      SelectedCustomer.Name = Name;
+                      SelectedCustomer.LastName = LastName;
+                      SelectedCustomer.Adress = Adress;
+                      SelectedCustomer.Login = Login;
+                      SelectedCustomer.Password = Password;
                       customerService.Update(
                           SelectedCustomer
                           );

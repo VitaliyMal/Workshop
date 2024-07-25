@@ -5,59 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Workshop.App"
         mc:Ignorable="d"
-         Title="MainWindow"     WindowState="Maximized"
-    >
+        Title="MainWindow" 
+        WindowState="Maximized">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Background" Value="LightBlue"/>
+            <Setter Property="Foreground" Value="LightSeaGreen"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="buttonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Margin="{TemplateBinding Margin}"
+                                Effect="{Binding ElementName=MainWindow, Path=Resources.DropShadow}">
+                            <!-- Тень -->
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightCyan"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" ShadowDepth="5" BlurRadius="15" Opacity="0.5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DropShadowEffect x:Key="DropShadow" Color="Black" ShadowDepth="0" BlurRadius="5" Opacity="0.3"/>
+    </Window.Resources>
+
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-            <Button 
-                Margin="10 10 10 0"
-                Height="70"
-                Width="250"
-                Content="Заказчик"
-                Background="Purple"
-                FontSize="30"
-                BorderBrush="Transparent"
-                x:Name="CustomerPage"
-                Click="CustomerPage_Click"                
-                />
-            <Button 
-                Margin="10 10 10 0"
-                Height="70"
-                Width="250"
-                Content="Ингредиенты"
-                Background="Purple"
-                FontSize="30"
-                BorderBrush="Transparent"
-                x:Name="IngredientPage"
-                Click="IngredientPage_Click"
-                />             
+            <Button Content="Заказчик" x:Name="CustomerPage" Click="CustomerPage_Click"/>
+            <Button Content="Ингредиенты" x:Name="IngredientPage" Click="IngredientPage_Click"/>
+            <Button Content="Заказ" x:Name="OrderPage" Click="OrderPage_Click"/>
+            <Button Content="Изделие" x:Name="ProductPage" Click="ProductPage_Click"/>
         </StackPanel>
-        <StackPanel Margin="0 80 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
-            <Button 
-                Margin="10 10 10 0"
-                Height="70"
-                Width="250"
-                Content="Заказ"
-                Background="Purple"
-                FontSize="30"
-                BorderBrush="Transparent"
-                x:Name="OrderPage"
-                Click="OrderPage_Click"
-                />
-            <Button 
-                Margin="10 10 10 0"
-                Height="70"
-                Width="250"
-                Content="Изделие"
-                Background="Purple"
-                FontSize="30"
-                BorderBrush="Transparent"
-                x:Name="ProductPage"
-                Click="ProductPage_Click"
-                />
-        </StackPanel>
-        <Frame x:Name="Main"
-                   Margin="0,160,0,0"
-                   NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="Main" Margin="0,160,0,0" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
