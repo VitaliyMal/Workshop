@@ -7,6 +7,9 @@
         public int Amount { get; set; }
         public int MinimalAmount { get; set; }
         public int Cost { get; set; }
+
         public int IngredientType_id { get; set; }
+        string? IngredientTypeTitle { get; set; }
+
     }
 }

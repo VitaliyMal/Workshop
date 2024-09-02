@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.App", "Workshop.Ap
 		{C330443C-A73D-4BDE-911D-CA208AF7363C} = {C330443C-A73D-4BDE-911D-CA208AF7363C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopWeb", "WorkshopWeb\WorkshopWeb.csproj", "{9481F05E-0218-4947-9489-00DACB69DC53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Server", "WorkshopWeb\Workshop.Server.csproj", "{9481F05E-0218-4947-9489-00DACB69DC53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
