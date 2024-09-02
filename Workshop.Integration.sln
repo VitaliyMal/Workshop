@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Integration", "Wor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.Core", "Workshop.Core\Workshop.Core.csproj", "{C330443C-A73D-4BDE-911D-CA208AF7363C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workshop.App", "Workshop.App\Workshop.App.csproj", "{1EE478A8-9706-4890-A9F2-EE383B14E469}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workshop.App", "Workshop.App\Workshop.App.csproj", "{1EE478A8-9706-4890-A9F2-EE383B14E469}"
 	ProjectSection(ProjectDependencies) = postProject
 		{34EDEB53-9AEC-4C4C-A086-3508EF3E774D} = {34EDEB53-9AEC-4C4C-A086-3508EF3E774D}
 		{C330443C-A73D-4BDE-911D-CA208AF7363C} = {C330443C-A73D-4BDE-911D-CA208AF7363C}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopWeb", "WorkshopWeb\WorkshopWeb.csproj", "{9481F05E-0218-4947-9489-00DACB69DC53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EE478A8-9706-4890-A9F2-EE383B14E469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9481F05E-0218-4947-9489-00DACB69DC53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9481F05E-0218-4947-9489-00DACB69DC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9481F05E-0218-4947-9489-00DACB69DC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9481F05E-0218-4947-9489-00DACB69DC53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
