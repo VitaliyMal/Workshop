@@ -2,7 +2,7 @@
 
 namespace Workshop.Server.DTOs
 {
-    public class UpdateIngredientDTO(
+    public record class UpdateIngredientDTO(
         [Required][StringLength(255)] string Title,
         int Amount,
         int MinimalAmount,

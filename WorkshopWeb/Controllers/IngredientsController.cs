@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Workshop.Server.DTOs;
+using Workshop.Server.Mapper;
 using WorkshopWeb.Entity;
 
 namespace WorkshopWeb.Controllers
@@ -22,52 +24,41 @@ namespace WorkshopWeb.Controllers
 
         // GET: api/Ingredients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ingredient>>> GetIngredient()
+        public async Task<ActionResult<IEnumerable<IngredientDTO>>> GetIngredient()
         {
-            return await _context.Ingredient.ToListAsync();
+            return await _context.Ingredient
+                .Select(x=>x.ToIngredientDTO())
+                .ToListAsync();
         }
 
         // GET: api/Ingredients/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ingredient>> GetIngredient(int id)
+        public async Task<ActionResult<IngredientDTO>> GetIngredient(int id)
         {
-            var ingredient = await _context.Ingredient.FindAsync(id);
+            Ingredient? ingredient = await _context.Ingredient.FindAsync(id);
 
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
-
-            return ingredient;
+            return ingredient==null
+                ? BadRequest() :
+                Ok(ingredient.ToIngredientDTO());
         }
 
         // PUT: api/Ingredients/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIngredient(int id, Ingredient ingredient)
+        public async Task<IActionResult> PutIngredient(int id, UpdateIngredientDTO ingredient)
         {
-            if (id != ingredient.Id)
+            var existingIngredient = await _context.Ingredient.FindAsync(id);
+
+            if (existingIngredient is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(ingredient).State = EntityState.Modified;
+            _context.Entry(existingIngredient)
+                .CurrentValues
+                .SetValues(ingredient.ToEntity(id));
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!IngredientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -75,26 +66,23 @@ namespace WorkshopWeb.Controllers
         // POST: api/Ingredients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Ingredient>> PostIngredient(Ingredient ingredient)
+        public async Task<IActionResult> PostIngredient(AddIngredientDTO newIngredient)
         {
+            Ingredient ingredient = newIngredient.ToEntity();
+
             _context.Ingredient.Add(ingredient);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetIngredient", new { id = ingredient.Id }, ingredient);
+            return Ok();
         }
 
         // DELETE: api/Ingredients/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient(int id)
         {
-            var ingredient = await _context.Ingredient.FindAsync(id);
-            if (ingredient == null)
-            {
-                return NotFound();
-            }
-
-            _context.Ingredient.Remove(ingredient);
-            await _context.SaveChangesAsync();
+            await _context.Ingredient
+                .Where(ingredient=>ingredient.Id == id)
+                .ExecuteDeleteAsync();
 
             return NoContent();
         }
