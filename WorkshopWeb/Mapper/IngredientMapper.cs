@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WorkshopWeb.Entity;
-using Workshop.Server.DTOs;
+using Workshop.Server.DTOs.IngredientDTOs;
 
 namespace Workshop.Server.Mapper
 {

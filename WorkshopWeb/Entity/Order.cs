@@ -1,14 +1,20 @@
-﻿namespace Workshop.Server.Entity
+﻿using WorkshopWeb.Entity;
+
+namespace Workshop.Server.Entity
 {
-    public class Order // проверить правильность составления сущности
+    public class Order
     {
         public int Id { get; set; }
+        public string? Description { get; set; }
 
         public int Product_id { get; set; }
-        public string Product_name { get; set; }
+        public Product? Product { get; set; }
 
         public int Customer_id { get; set; }
-        public string Customer_name { get; set; }
+        public Customer? Customer { get; set; }
+
+        public int State_Type_id { get; set; }
+        public State_Type? State { get; set; }
 
 
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Workshop.Server.DTOs;
+using Workshop.Server.DTOs.IngredientDTOs;
 using Workshop.Server.Mapper;
 using WorkshopWeb.Entity;
 

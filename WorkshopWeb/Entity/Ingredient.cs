@@ -9,7 +9,7 @@
         public int Cost { get; set; }
 
         public int IngredientType_id { get; set; }
-        string? IngredientTypeTitle { get; set; }
+        public Ingredient_Type? Ingredient_Type { get; set; }
 
     }
 }

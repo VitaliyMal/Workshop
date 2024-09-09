@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Workshop.Server.DTOs
+namespace Workshop.Server.DTOs.IngredientDTOs
 {
-    public record class UpdateIngredientDTO(
+    public record class AddIngredientDTO(
         [Required][StringLength(255)] string Title,
         int Amount,
         int MinimalAmount,
         int Cost,
-        [Range(1, 5)] int IngredientType_id
+        [Range(1, 6)] int IngredientType_id
         );
 }

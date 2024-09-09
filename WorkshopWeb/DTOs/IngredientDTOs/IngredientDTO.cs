@@ -1,4 +1,4 @@
-﻿namespace Workshop.Server.DTOs
+﻿namespace Workshop.Server.DTOs.IngredientDTOs
 {
     public record class IngredientDTO(
         int Id,
@@ -8,5 +8,5 @@
         int Cost,
         int IngredientType_id
         );
-    
+
 }
