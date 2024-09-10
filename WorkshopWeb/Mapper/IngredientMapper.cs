@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿//using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WorkshopWeb.Entity;
 using Workshop.Server.DTOs.IngredientDTOs;
 
@@ -14,7 +14,7 @@ namespace Workshop.Server.Mapper
                 Amount = addIngredient.Amount,
                 MinimalAmount = addIngredient.MinimalAmount,
                 Cost = addIngredient.Cost,
-                IngredientType_id=addIngredient.IngredientType_id
+                IngredientType_id=addIngredient.IngredientType_id                
             };
         }
 

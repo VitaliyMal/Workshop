@@ -2,7 +2,7 @@
 {
     public class State_Type
     {
-        int Id { get; set; }
-        public string State_Type_Title { get; set; }
+        public int Id { get; set; }
+        public string State_Type_Title { get; set; } ///enum???
     }
 }
