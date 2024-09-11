@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Http;
+//using WorkshopWeb;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkshopWeb;
+using Workshop.Server.DTOs.ProductDTOs;
+using Workshop.Server.Mapper;
 using WorkshopWeb.Entity;
 
 namespace WorkshopWeb.Controllers
@@ -23,52 +25,41 @@ namespace WorkshopWeb.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Product
+                .Select(x => x.ToProductDTO())
+                .ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductDTO>> GetProduct(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            Product? product = await _context.Product.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return product;
+            return product == null
+                ? BadRequest() :
+                Ok(product.ToProductDTO());
         }
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProduct(int id, UpgradeProductDTO product)
         {
-            if (id != product.Id)
+            var existingProduct = await _context.Product.FindAsync(id);
+
+            if (existingProduct is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(product).State = EntityState.Modified;
+            _context.Entry(existingProduct)
+                .CurrentValues
+                .SetValues(product.ToEntity(id));
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -76,26 +67,23 @@ namespace WorkshopWeb.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<IActionResult> PostProduct(AddProductDTO newProduct)
         {
+            Product product = newProduct.ToEntity();
+
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return Ok();
         }
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
+            await _context.Product
+                .Where(product => product.Id == id)
+                .ExecuteDeleteAsync();
 
             return NoContent();
         }

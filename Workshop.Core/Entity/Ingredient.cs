@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Xml.Linq;
 
 namespace Workshop.Core.Entity
 {
@@ -10,12 +9,12 @@ namespace Workshop.Core.Entity
     {
         public Ingredient(string title = "", int amount = 0, int minimalAmount = 0, int cost = 0, IngredientType type = IngredientType.Not_defined)
         {
-            Id=_idCounter++;
-            Title=title;
-            Amount=amount;
-            MinimalAmount=minimalAmount;
-            Cost=cost;
-            Type=type;
+            Id = _idCounter++;
+            Title = title;
+            Amount = amount;
+            MinimalAmount = minimalAmount;
+            Cost = cost;
+            Type = type;
         }
 
         public Ingredient()
@@ -37,7 +36,7 @@ namespace Workshop.Core.Entity
         public int Cost { get; set; }
         public IngredientType Type { get; set; }
 
-        
+
         public override string ToString()
         {
             return string.Join(",", Convert.ToString(Id), Title, Convert.ToString(Amount), Convert.ToString(MinimalAmount), Convert.ToString(Cost), Convert.ToString(Type));

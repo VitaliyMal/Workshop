@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Workshop.Server.DTOs.Ingredient_TypeDTOs;
+using Workshop.Server.Mapper;
 using WorkshopWeb.Entity;
 
 namespace WorkshopWeb.Controllers
@@ -20,86 +22,72 @@ namespace WorkshopWeb.Controllers
             _context = context;
         }
 
-        // GET: api/Workshops
+        // GET: api/Ingredient_Type
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ingredient_Type>>> GetIngredients()
+        public async Task<ActionResult<IEnumerable<Ingredient_TypeDTO>>> GetIngredient_Type()
         {
-            return await _context.Ingredient_Type.ToListAsync();
+            return await _context.Ingredient_Type
+                .Select(x => x.ToIngredient_TypeDTO())
+                .ToListAsync();
         }
 
-        // GET: api/Workshops/5
+        // GET: api/Ingredient_Type/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ingredient_Type>> GetWorkshop(int id)
+        public async Task<ActionResult<Ingredient_TypeDTO>> GetIngredient_Type(int id)
         {
-            var workshop = await _context.Ingredient_Type.FindAsync(id);
+            Ingredient_Type? ingredient_Type = await _context.Ingredient_Type.FindAsync(id);
 
-            if (workshop == null)
-            {
-                return NotFound();
-            }
-
-            return workshop;
+            return ingredient_Type == null
+                ? BadRequest() :
+                Ok(ingredient_Type.ToIngredient_TypeDTO());
         }
 
-        // PUT: api/Workshops/5
+        // PUT: api/Ingredient_Type/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWorkshop(int id, Ingredient_Type workshop)
+        public async Task<IActionResult> PutIngredient_Type(int id, UpgradeIngredient_TypeDTO ingredient_Type)
         {
-            if (id != workshop.Id)
-            {
-                return BadRequest();
-            }
+            var existingIngredient_Type = await _context.Ingredient_Type.FindAsync(id);
 
-            _context.Entry(workshop).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!WorkshopExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Workshops
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Ingredient_Type>> PostWorkshop(Ingredient_Type workshop)
-        {
-            _context.Ingredient_Type.Add(workshop);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetWorkshop", new { id = workshop.Id }, workshop);
-        }
-
-        // DELETE: api/Workshops/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWorkshop(int id)
-        {
-            var workshop = await _context.Ingredient_Type.FindAsync(id);
-            if (workshop == null)
+            if (existingIngredient_Type is null)
             {
                 return NotFound();
             }
 
-            _context.Ingredient_Type.Remove(workshop);
+            _context.Entry(existingIngredient_Type)
+                .CurrentValues
+                .SetValues(ingredient_Type.ToEntity(id));
+
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool WorkshopExists(int id)
+        // POST: api/Ingredient_Type
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<IActionResult> PostIngredient_Type(AddIngredient_TypeDTO newIngredient_Type)
+        {
+            Ingredient_Type ingredient_Type = newIngredient_Type.ToEntity();
+
+            _context.Ingredient_Type.Add(ingredient_Type);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        // DELETE: api/Ingredient_Type/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteIngredient_Type(int id)
+        {
+            await _context.Ingredient_Type
+                .Where(ingredient_Type => ingredient_Type.Id == id)
+                .ExecuteDeleteAsync();
+
+            return NoContent();
+        }
+
+        private bool Ingredient_TypeExists(int id)
         {
             return _context.Ingredient_Type.Any(e => e.Id == id);
         }

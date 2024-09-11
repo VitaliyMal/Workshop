@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Workshop.App.Core;
-using Workshop.Core.Service;
-using Workshop.Core;
 using Workshop.Core.Entity;
-using System.Windows;
+using Workshop.Core.Service;
 
 namespace Workshop.App.ViewModels
 {

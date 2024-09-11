@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Workshop.Server.Entity;
 
 namespace Workshop.Server.DTOs.OrderDTOs
 {
@@ -8,8 +7,8 @@ namespace Workshop.Server.DTOs.OrderDTOs
         int Id,
         string Description,
 
-        int Product_id,
-        int Customer_id,
-        int State_Type_id
+        [Required][Range(1, double.MaxValue)] int Product_id,
+        [Required][Range(1, double.MaxValue)] int Customer_id,
+        [Required][Range(1, 5)] int State_Type_id
     );
 }

@@ -27,7 +27,7 @@ namespace Workshop.Server.Mapper
             };
         }
 
-        public static ProductDTO ToProductDTO (this Product product)
+        public static ProductDTO ToProductDTO(this Product product)
         {
             return new ProductDTO(
                 product.Id,

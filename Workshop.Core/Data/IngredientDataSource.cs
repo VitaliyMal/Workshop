@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Workshop.Core.Entity;
+﻿using Workshop.Core.Entity;
 using Workshop.Core.Utility;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Workshop.Core.Data
 {
@@ -16,7 +10,7 @@ namespace Workshop.Core.Data
         /// <summary>
         /// Метод чтения в формате JSON и их десериализация
         /// </summary>
-        
+
         public List<Ingredient> Get()
         {
             if (File.Exists(path))

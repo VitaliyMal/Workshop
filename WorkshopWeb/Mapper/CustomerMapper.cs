@@ -1,6 +1,4 @@
-﻿//using Microsoft.CodeAnalysis.CSharp.Syntax;
-//using WorkshopWeb.Entity;
-using Workshop.Server.DTOs.CustomerDTOs;
+﻿using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.Entity;
 
 namespace Workshop.Server.Mapper
@@ -11,11 +9,11 @@ namespace Workshop.Server.Mapper
         {
             return new Customer()
             {
-                Name=addCustomer.Name,
-                LastName=addCustomer.LastName,
-                Adress=addCustomer.Adress,
-                Login=addCustomer.Login,
-                Password=addCustomer.Password
+                Name = addCustomer.Name,
+                LastName = addCustomer.LastName,
+                Adress = addCustomer.Adress,
+                Login = addCustomer.Login,
+                Password = addCustomer.Password
             };
         }
 
@@ -24,14 +22,14 @@ namespace Workshop.Server.Mapper
             return new Customer()
             {
                 Name = UpCustomer.Name,
-                LastName=UpCustomer.LastName,
-                Adress=UpCustomer.Adress,
-                Login=UpCustomer.Login,
-                Password=UpCustomer.Password
+                LastName = UpCustomer.LastName,
+                Adress = UpCustomer.Adress,
+                Login = UpCustomer.Login,
+                Password = UpCustomer.Password
             };
         }
 
-        public static CustomerDTO ToCustomerDTO (this Customer customer)
+        public static CustomerDTO ToCustomerDTO(this Customer customer)
         {
             return new CustomerDTO(
                 customer.Id,

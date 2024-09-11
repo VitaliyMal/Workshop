@@ -1,6 +1,5 @@
-﻿//using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Workshop.Server.DTOs.IngredientDTOs;
 using WorkshopWeb.Entity;
-using Workshop.Server.DTOs.IngredientDTOs;
 
 namespace Workshop.Server.Mapper
 {
@@ -10,11 +9,11 @@ namespace Workshop.Server.Mapper
         {
             return new Ingredient()
             {
-                Title= addIngredient.Title,
+                Title = addIngredient.Title,
                 Amount = addIngredient.Amount,
                 MinimalAmount = addIngredient.MinimalAmount,
                 Cost = addIngredient.Cost,
-                IngredientType_id=addIngredient.IngredientType_id                
+                IngredientType_id = addIngredient.IngredientType_id
             };
         }
 
@@ -30,7 +29,7 @@ namespace Workshop.Server.Mapper
             };
         }
 
-        public static IngredientDTO ToIngredientDTO (this Ingredient ingredient)
+        public static IngredientDTO ToIngredientDTO(this Ingredient ingredient)
         {
             return new IngredientDTO(
                 ingredient.Id,

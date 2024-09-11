@@ -9,8 +9,8 @@ namespace Workshop.Server.Mapper
         {
             return new Recipe()
             {
-                Id_Ingredient=addRecipe.Id_Ingredient,
-                Id_Product=addRecipe.Id_Product
+                Id_Ingredient = addRecipe.Id_Ingredient,
+                Id_Product = addRecipe.Id_Product
             };
         }
 
@@ -18,12 +18,12 @@ namespace Workshop.Server.Mapper
         {
             return new Recipe()
             {
-                Id_Ingredient=upRecipe.Id_Ingredient,
+                Id_Ingredient = upRecipe.Id_Ingredient,
                 Id_Product = upRecipe.Id_Product
             };
         }
 
-        public static RecipeDTO ToRecipeDTO (this Recipe recipe)
+        public static RecipeDTO ToRecipeDTO(this Recipe recipe)
         {
             return new RecipeDTO(
                 recipe.Id,

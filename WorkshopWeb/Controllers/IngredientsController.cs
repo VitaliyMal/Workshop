@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Workshop.Server.DTOs.IngredientDTOs;
 using Workshop.Server.Mapper;
@@ -27,7 +22,7 @@ namespace WorkshopWeb.Controllers
         public async Task<ActionResult<IEnumerable<IngredientDTO>>> GetIngredient()
         {
             return await _context.Ingredient
-                .Select(x=>x.ToIngredientDTO())
+                .Select(x => x.ToIngredientDTO())
                 .ToListAsync();
         }
 
@@ -37,7 +32,7 @@ namespace WorkshopWeb.Controllers
         {
             Ingredient? ingredient = await _context.Ingredient.FindAsync(id);
 
-            return ingredient==null
+            return ingredient == null
                 ? BadRequest() :
                 Ok(ingredient.ToIngredientDTO());
         }
@@ -81,7 +76,7 @@ namespace WorkshopWeb.Controllers
         public async Task<IActionResult> DeleteIngredient(int id)
         {
             await _context.Ingredient
-                .Where(ingredient=>ingredient.Id == id)
+                .Where(ingredient => ingredient.Id == id)
                 .ExecuteDeleteAsync();
 
             return NoContent();

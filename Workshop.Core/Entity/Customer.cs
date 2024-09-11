@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Workshop.Core.Entity
 {
@@ -16,12 +10,12 @@ namespace Workshop.Core.Entity
     {
         public Customer(string name = "", string lastName = "", string adress = "", string login = "", string password = "")
         {
-            Id=_idCounter++;
-            Name=name;
-            LastName=lastName;
-            Adress=adress;
-            Login=login;
-            Password=password;
+            Id = _idCounter++;
+            Name = name;
+            LastName = lastName;
+            Adress = adress;
+            Login = login;
+            Password = password;
         }
 
         public Customer()
@@ -33,7 +27,7 @@ namespace Workshop.Core.Entity
             Login = "no_login";
             Password = "no_password";
         }
-        public static int _idCounter=1;
+        public static int _idCounter = 1;
 
         [JsonProperty("Id")]
         public int Id { get; set; }

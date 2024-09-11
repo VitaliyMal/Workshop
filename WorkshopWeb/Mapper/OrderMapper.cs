@@ -1,6 +1,4 @@
-﻿//using Microsoft.CodeAnalysis.CSharp.Syntax;
-//using WorkshopWeb.Entity;
-using Workshop.Server.DTOs.OrderDTOs;
+﻿using Workshop.Server.DTOs.OrderDTOs;
 using Workshop.Server.Entity;
 
 
@@ -15,7 +13,7 @@ namespace Workshop.Server.Mapper
                 Description = addOrder.Description,
                 Product_id = addOrder.Product_id,
                 Customer_id = addOrder.Customer_id,
-                State_Type_id=addOrder.State_Type_id
+                State_Type_id = addOrder.State_Type_id
             };
         }
 
@@ -23,10 +21,10 @@ namespace Workshop.Server.Mapper
         {
             return new Order()
             {
-                Description= UpOrder.Description,
-                Product_id=UpOrder.Product_id,
-                Customer_id=UpOrder.Customer_id,
-                State_Type_id=UpOrder.State_Type_id
+                Description = UpOrder.Description,
+                Product_id = UpOrder.Product_id,
+                Customer_id = UpOrder.Customer_id,
+                State_Type_id = UpOrder.State_Type_id
             };
         }
 

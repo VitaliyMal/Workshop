@@ -9,7 +9,7 @@ namespace Workshop.Server.Mapper
         {
             return new State_Type()
             {
-                State_Type_Title=addState_Type.State_Type_Title
+                State_Type_Title = addState_Type.State_Type_Title
             };
         }
 
@@ -17,7 +17,7 @@ namespace Workshop.Server.Mapper
         {
             return new State_Type()
             {
-                State_Type_Title=UpState_Type.State_Type_Title
+                State_Type_Title = UpState_Type.State_Type_Title
             };
         }
 

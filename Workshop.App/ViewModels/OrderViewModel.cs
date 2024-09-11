@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Workshop.App.Core;
-using Workshop.Core.Service;
-using Workshop.Core;
 using Workshop.Core.Entity;
+using Workshop.Core.Service;
 
 namespace Workshop.App.ViewModels
 {
@@ -55,7 +49,7 @@ namespace Workshop.App.ViewModels
                   (addCommand = new RelayCommand(obj =>
                   {
                       orderService.Create(
-                          new Order(Convert.ToInt32( Input)) // тут возможны проблемы с вводом
+                          new Order(Convert.ToInt32(Input)) // тут возможны проблемы с вводом
                           );
                       OrderList = new ObservableCollection<Order>(orderService.GetAll());
                   }));

@@ -1,6 +1,5 @@
-﻿//using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Workshop.Server.DTOs.Ingredient_TypeDTOs;
 using WorkshopWeb.Entity;
-using Workshop.Server.DTOs.Ingredient_TypeDTOs;
 
 
 namespace Workshop.Server.Mapper
@@ -11,7 +10,7 @@ namespace Workshop.Server.Mapper
         {
             return new Ingredient_Type()
             {
-                IngredientTypeTitle=addIngredient_Type.IngredientTypeTitle
+                IngredientTypeTitle = addIngredient_Type.IngredientTypeTitle
             };
         }
 
@@ -19,7 +18,7 @@ namespace Workshop.Server.Mapper
         {
             return new Ingredient_Type()
             {
-                IngredientTypeTitle=UpIngredient_Type.IngredientTypeTitle
+                IngredientTypeTitle = UpIngredient_Type.IngredientTypeTitle
             };
         }
 

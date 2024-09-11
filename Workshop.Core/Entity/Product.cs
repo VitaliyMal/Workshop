@@ -1,12 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Workshop.Core.Entity
 {
@@ -17,12 +9,12 @@ namespace Workshop.Core.Entity
     {
         public Product(string name = "", string description = "", int price = 0, int production_time = 0, List<Ingredient> ingredients = null)
         {
-            Id=_idCounter++;
-            Name=name;
-            Description=description;
-            Price=price;
-            Production_time=production_time;
-            Ingredients= ingredients;
+            Id = _idCounter++;
+            Name = name;
+            Description = description;
+            Price = price;
+            Production_time = production_time;
+            Ingredients = ingredients;
         }
 
         public Product()
