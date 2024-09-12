@@ -11,10 +11,11 @@ namespace WorkshopWeb
         }
 
         public DbSet<Ingredient_Type> Ingredient_Type { get; set; }
-        public DbSet<Ingredient> Ingredient { get; set; }   
+        public DbSet<Ingredient> Ingredient { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Workshop.Server.Entity.Customer> Customer { get; set; } /*= default!;*/
-
+        public DbSet<Workshop.Server.Entity.Order> Order { get; set; } /*= default!;*/
+        public DbSet<Workshop.Server.Entity.Recipe> Recipe { get; set; } /*= default!;*/
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -81,6 +82,6 @@ namespace WorkshopWeb
                 }
             }
             );
-        }        
+        }
     }
 }
