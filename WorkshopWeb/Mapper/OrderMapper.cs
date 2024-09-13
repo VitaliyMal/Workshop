@@ -21,6 +21,7 @@ namespace Workshop.Server.Mapper
         {
             return new Order()
             {
+                Id = id,
                 Description = UpOrder.Description,
                 Product_id = UpOrder.Product_id,
                 Customer_id = UpOrder.Customer_id,
@@ -32,7 +33,7 @@ namespace Workshop.Server.Mapper
         {
             return new OrderDTO(
                 order.Id,
-                order.Description,
+                order.Description ?? "",
                 order.Product_id,
                 order.Customer_id,
                 order.State_Type_id

@@ -11,7 +11,7 @@ using WorkshopWeb;
 namespace Workshop.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240912171609_Init")]
+    [Migration("20240913160154_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace Workshop.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Adress")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Login")
@@ -39,7 +37,6 @@ namespace Workshop.Server.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -234,7 +231,6 @@ namespace Workshop.Server.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

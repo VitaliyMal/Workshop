@@ -21,6 +21,7 @@ namespace Workshop.Server.Mapper
         {
             return new Customer()
             {
+                Id = id,
                 Name = UpCustomer.Name,
                 LastName = UpCustomer.LastName,
                 Adress = UpCustomer.Adress,
@@ -33,9 +34,9 @@ namespace Workshop.Server.Mapper
         {
             return new CustomerDTO(
                 customer.Id,
-                customer.Name,
-                customer.LastName,
-                customer.Adress,
+                customer.Name ?? "",
+                customer.LastName ?? "",
+                customer.Adress ?? "",
                 customer.Login,
                 customer.Password
             );

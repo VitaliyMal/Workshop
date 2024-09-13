@@ -18,6 +18,7 @@ namespace Workshop.Server.Mapper
         {
             return new Ingredient_Type()
             {
+                Id = id,
                 IngredientTypeTitle = UpIngredient_Type.IngredientTypeTitle
             };
         }

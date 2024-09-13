@@ -21,6 +21,7 @@ namespace Workshop.Server.Mapper
         {
             return new Ingredient()
             {
+                Id = id,
                 Title = UpIngredient.Title,
                 Amount = UpIngredient.Amount,
                 MinimalAmount = UpIngredient.MinimalAmount,

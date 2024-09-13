@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.Entity;
+using Workshop.Server.Mapper;
 using WorkshopWeb;
 
 namespace Workshop.Server.Controllers
@@ -18,52 +20,41 @@ namespace Workshop.Server.Controllers
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomer()
+        public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomer()
         {
-            return await _context.Customer.ToListAsync();
+            return await _context.Customer
+                .Select(x => x.ToCustomerDTO())
+                .ToListAsync();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CustomerDTO>> GetCustomer(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
+            Customer? customer = await _context.Customer.FindAsync(id);
 
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return customer;
+            return customer == null
+                ? BadRequest() :
+                Ok(customer.ToCustomerDTO());
         }
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutCustomer(int id, UpgradeCustomerDTO customer)
         {
-            if (id != customer.Id)
+            var existingCustomer = await _context.Customer.FindAsync(id);
+
+            if (existingCustomer is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(existingCustomer)
+                .CurrentValues
+                .SetValues(customer.ToEntity(id));
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -71,26 +62,23 @@ namespace Workshop.Server.Controllers
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<IActionResult> PostCustomer(AddCustomerDTO newCustomer)
         {
+            Customer customer = newCustomer.ToEntity();
+
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return Ok();
         }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var customer = await _context.Customer.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            _context.Customer.Remove(customer);
-            await _context.SaveChangesAsync();
+            await _context.Customer
+                .Where(customer => customer.Id == id)
+                .ExecuteDeleteAsync();
 
             return NoContent();
         }

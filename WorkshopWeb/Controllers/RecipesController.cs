@@ -23,7 +23,7 @@ namespace Workshop.Server.Controllers
         public async Task<ActionResult<IEnumerable<RecipeDTO>>> GetRecipe()
         {
             return await _context.Recipe
-                .Select(x =>x.ToRecipeDTO())
+                .Select(x => x.ToRecipeDTO())
                 .ToListAsync();
         }
 
@@ -31,8 +31,8 @@ namespace Workshop.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RecipeDTO>> GetRecipe(int id)
         {
-            Recipe? recipe=await _context.Recipe.FindAsync(id);
-            
+            Recipe? recipe = await _context.Recipe.FindAsync(id);
+
             return recipe == null
                 ? BadRequest() :
                 Ok(recipe.ToRecipeDTO());
@@ -43,8 +43,8 @@ namespace Workshop.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRecipe(int id, UpgradeRecipeDTO recipe)
         {
-            var existingRecipe=await _context.Recipe.FindAsync(id);
-            
+            var existingRecipe = await _context.Recipe.FindAsync(id);
+
             if (existingRecipe is null)
             {
                 return NotFound();
@@ -65,7 +65,7 @@ namespace Workshop.Server.Controllers
         public async Task<IActionResult> PostRecipe(AddRecipeDTO newRecipe)
         {
             Recipe recipe = newRecipe.ToEntity();
-            
+
             _context.Recipe.Add(recipe);
             await _context.SaveChangesAsync();
 

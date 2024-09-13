@@ -18,6 +18,7 @@ namespace Workshop.Server.Mapper
         {
             return new Recipe()
             {
+                Id = id,
                 Id_Ingredient = upRecipe.Id_Ingredient,
                 Id_Product = upRecipe.Id_Product
             };

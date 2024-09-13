@@ -17,6 +17,7 @@ namespace Workshop.Server.Mapper
         {
             return new State_Type()
             {
+                Id = id,
                 State_Type_Title = UpState_Type.State_Type_Title
             };
         }

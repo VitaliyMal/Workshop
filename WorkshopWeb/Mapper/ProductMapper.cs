@@ -20,6 +20,7 @@ namespace Workshop.Server.Mapper
         {
             return new Product()
             {
+                Id = id,
                 Name = UpProduct.Name,
                 Description = UpProduct.Description,
                 Price = UpProduct.Price,
@@ -32,7 +33,7 @@ namespace Workshop.Server.Mapper
             return new ProductDTO(
                 product.Id,
                 product.Name,
-                product.Description,
+                product.Description ?? "",
                 product.Price,
                 product.Production_time
             );

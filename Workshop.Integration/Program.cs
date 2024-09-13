@@ -111,3 +111,12 @@ dataServiceProduct.Delete(1);
 Console.WriteLine("Deleted product n1");
 Console.WriteLine(string.Join("\n", dataServiceProduct.GetAll()));
 
+var customerDataSource = new CustomerRemoteDataSource();
+var customers = await customerDataSource.GetCustomers();
+
+Console.WriteLine(string.Join(" ", customers));
+
+if (customers.Count > 0)
+    Console.WriteLine(await customerDataSource.GetCustomer(customers.First().Id));
+
+
