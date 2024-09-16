@@ -1,25 +1,25 @@
 ﻿using Workshop.Core.Entity;
 using Workshop.Core.Utility;
 
-namespace Workshop.Core.Data
+namespace Workshop.Core.Data.Direct
 {
-    public class CustomerDataSource
+    public class ProductDataSource
     {
-        private readonly string path = ".\\Customer.json";
+        private readonly string path = ".\\Product.json";
 
         /// <summary>
         /// Метод чтения в формате JSON и их десериализация
         /// </summary>
 
-        public List<Customer> Get()
+        public List<Product> Get()
         {
             if (File.Exists(path))
             {
                 using (StreamReader reader = new StreamReader(path))
                 {
                     string data = reader.ReadToEnd();
-                    var tmp = DataSerializer.Deserialize<List<Customer>>(data) ?? [];
-                    Customer._idCounter = tmp.Count > 0 ? tmp.Select(x => x.Id).Max() + 1 : 0;
+                    var tmp = DataSerializer.Deserialize<List<Product>>(data) ?? [];
+                    Product._idCounter = tmp.Count > 0 ? tmp.Select(x => x.Id).Max() + 1 : 0;
                     return tmp;
                 }
 
@@ -31,7 +31,7 @@ namespace Workshop.Core.Data
         /// Метод записи в формате JSON и их сериализация
         /// </summary>
 
-        public void Write(List<Customer> data)
+        public void Write(List<Product> data)
         {
             using (StreamWriter writer = new StreamWriter(path, false))
             {
@@ -39,18 +39,16 @@ namespace Workshop.Core.Data
             }
         }
 
-
-
         /// <summary>
         /// Принимает не лист, а один экземпляр класса.
         /// </summary>
         /// <returns></returns>
-        //public Customer Get()
+        //public Product Get()
         //{
         //    if (File.Exists(path))
         //    {
-        //        string customerF = File.ReadAllText(path);
-        //        return DataSerializer.Deserialize<Customer>(customerF);
+        //        string productF = File.ReadAllText(path);
+        //        return DataSerializer.Deserialize<Product>(productF);
         //    }
         //    return null;
         //}
@@ -59,9 +57,9 @@ namespace Workshop.Core.Data
         ///// Метод записи в формате JSON и их сериализация
         ///// </summary>
 
-        //public void Write(Customer customerF)
+        //public void Write(Product productF)
         //{
-        //    File.WriteAllText(path, DataSerializer.Serialize(customerF));
+        //    File.WriteAllText(path, DataSerializer.Serialize(productF));
         //}
     }
 }

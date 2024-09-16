@@ -2,7 +2,7 @@
 using Workshop.Server.Entity;
 using WorkshopWeb.Entity;
 
-namespace WorkshopWeb
+namespace Workshop.Server.Data
 {
     public class DataContext : DbContext
     {
@@ -13,9 +13,9 @@ namespace WorkshopWeb
         public DbSet<Ingredient_Type> Ingredient_Type { get; set; }
         public DbSet<Ingredient> Ingredient { get; set; }
         public DbSet<Product> Product { get; set; }
-        public DbSet<Workshop.Server.Entity.Customer> Customer { get; set; } /*= default!;*/
-        public DbSet<Workshop.Server.Entity.Order> Order { get; set; } /*= default!;*/
-        public DbSet<Workshop.Server.Entity.Recipe> Recipe { get; set; } /*= default!;*/
+        public DbSet<Customer> Customer { get; set; } /*= default!;*/
+        public DbSet<Order> Order { get; set; } /*= default!;*/
+        public DbSet<Recipe> Recipe { get; set; } /*= default!;*/
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

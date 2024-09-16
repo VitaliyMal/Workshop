@@ -1,7 +1,7 @@
 ﻿using Workshop.Core.Entity;
 using Workshop.Core.Utility;
 
-namespace Workshop.Core.Data
+namespace Workshop.Core.Data.Direct
 {
     public class IngredientDataSource
     {

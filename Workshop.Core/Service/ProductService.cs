@@ -1,4 +1,4 @@
-﻿using Workshop.Core.Data;
+﻿using Workshop.Core.Data.Direct;
 using Workshop.Core.Entity;
 
 namespace Workshop.Core.Service

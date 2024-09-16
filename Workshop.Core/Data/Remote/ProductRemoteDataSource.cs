@@ -1,15 +1,20 @@
-﻿using System.Net.Http.Headers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using Workshop.Core.Utility;
-using Workshop.Server.DTOs.CustomerDTOs;
+using Workshop.Server.DTOs.ProductDTOs;
+//using Workshop.Server.DTOs.CustomerDTOs;
 
-
-namespace Workshop.Core.Data
+namespace Workshop.Core.Data.Remote
 {
-    public class CustomerRemoteDataSource
+    public class ProductRemoteDataSource
     {
         public static readonly HttpClient client = new HttpClient();
 
-        public CustomerRemoteDataSource()
+        public ProductRemoteDataSource()
         {
             client.BaseAddress = new Uri("http://localhost:5253/");
             client.DefaultRequestHeaders.Accept.Clear();
@@ -18,40 +23,40 @@ namespace Workshop.Core.Data
         }
 
 
-        public async Task<CustomerDTO> GetCustomer(int id)
+        public async Task<ProductDTO> GetProduct(int id)
         {
-            CustomerDTO customer = null;
+            ProductDTO product = null;
 
-            HttpResponseMessage response = await client.GetAsync($"api/Customers/{id}");
+            HttpResponseMessage response = await client.GetAsync($"api/Products/{id}");
             if (response.IsSuccessStatusCode)
             {
-                customer = DataSerializer.Deserialize<CustomerDTO>(
+                product = DataSerializer.Deserialize<ProductDTO>(
                     await response.Content.ReadAsStringAsync());
             }
-            return customer;
+            return product;
         }
 
-        public async Task<List<CustomerDTO>> GetCustomers()
+        public async Task<List<ProductDTO>> GetProduct()
         {
 
             HttpResponseMessage response = await client.GetAsync(
-                "api/Customers");
+                "api/Products");
             response.EnsureSuccessStatusCode();
 
-            List<CustomerDTO> CustomerResponse = new List<CustomerDTO>();
+            List<ProductDTO> ProductResponse = new List<ProductDTO>();
             if (response.IsSuccessStatusCode)
             {
-                CustomerResponse = DataSerializer.Deserialize<List<CustomerDTO>>(
+                ProductResponse = DataSerializer.Deserialize<List<ProductDTO>>(
                     await response.Content.ReadAsStringAsync());
             }
-            return CustomerResponse;
+            return ProductResponse;
         }
 
-        public async Task PostCustomer(AddCustomerDTO customer)
+        public async Task PostProduct(AddProductDTO product)
         {
 
             HttpResponseMessage response = await client.PostAsync(
-                "api/Customers", new StringContent(DataSerializer.Serialize(customer)));
+                "api/Products", new StringContent(DataSerializer.Serialize(product)));
             response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
@@ -61,11 +66,11 @@ namespace Workshop.Core.Data
             return;
         }
 
-        public async Task UpdateCustomer(UpgradeCustomerDTO customer)
+        public async Task UpdateProduct(UpgradeProductDTO product)
         {
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/Customers", new StringContent(DataSerializer.Serialize(customer)));
+                "api/Products", new StringContent(DataSerializer.Serialize(product)));
             response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
@@ -75,9 +80,9 @@ namespace Workshop.Core.Data
             return;
         }
 
-        public async Task DeleteCustomer(int id)
+        public async Task DeleteProduct(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"api/Customers/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"api/Products/{id}");
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception();
