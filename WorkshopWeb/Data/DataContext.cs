@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Workshop.Server.Entity;
 using WorkshopWeb.Entity;
+using Workshop.Server.DTOs.SecurityDTOs;
 
 namespace Workshop.Server.Data
 {
@@ -16,6 +17,8 @@ namespace Workshop.Server.Data
         public DbSet<Customer> Customer { get; set; } /*= default!;*/
         public DbSet<Order> Order { get; set; } /*= default!;*/
         public DbSet<Recipe> Recipe { get; set; } /*= default!;*/
+        public DbSet<User> Users { get; set; }
+        //public DbSet<SecurityResponse> SecurityResponse { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -83,5 +86,6 @@ namespace Workshop.Server.Data
             }
             );
         }
+
     }
 }

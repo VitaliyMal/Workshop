@@ -2,9 +2,11 @@
 
 namespace Workshop.Server.Entity
 {
-    public class User : IdentityUser
+    public class User 
 
     {
-        public string? Initials { get; set; }
+        public int Id { get; set; }
+        public string Login { get; set; } = "";
+        public string Password { get; set; } = "";
     }
 }
