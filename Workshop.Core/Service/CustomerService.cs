@@ -1,22 +1,24 @@
-﻿using Workshop.Core.Data.Direct;
+﻿//using Workshop.Core.Data.Direct;
+using Workshop.Core.Data.Remote;
 using Workshop.Core.Entity;
+
 
 namespace Workshop.Core.Service
 {
     public class CustomerService
     {
         public CustomerDataSource _dataSource;
-        private List<Customer> _customers = [];
+        private List<Customer> _customers = new List<Customer>();
 
-        public CustomerService(CustomerDataSource dataSource)
+        public CustomerService(CustomerRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;
-            _customers = _dataSource.Get() ?? new List<Customer>();
+            _dataSource = dataSource;            
         }
 
-        public List<Customer> GetAll()
+ 
+        public async Task GetAll()
         {
-            return _customers;
+            await _dataSource.GetCustomers().Select(x => new Customer(x.Id, x.Title)).ToList();
         }
 
         public Customer Get(int id)

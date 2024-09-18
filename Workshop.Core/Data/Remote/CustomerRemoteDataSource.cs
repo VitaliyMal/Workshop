@@ -51,7 +51,7 @@ namespace Workshop.Core.Data.Remote
         public async Task PostCustomer(AddCustomerDTO customer)
         {
             HttpResponseMessage response = await client.PostAsync(
-                "api/Customers", JsonContent.Create(DataSerializer.Serialize(customer)));
+                ("api/Customers"), JsonContent.Create(customer));
             response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
@@ -64,8 +64,10 @@ namespace Workshop.Core.Data.Remote
         public async Task UpdateCustomer(UpgradeCustomerDTO customer)
         {
 
+            var json = JsonContent.Create(customer);
+
             HttpResponseMessage response = await client.PutAsync(
-                "api/Customers", JsonContent.Create(DataSerializer.Serialize(customer)));
+                $"api/Customers", json);
             response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
@@ -78,6 +80,8 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteCustomer(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Customers/{id}");
+            response.EnsureSuccessStatusCode();
+
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception();
