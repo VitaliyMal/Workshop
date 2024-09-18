@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Workshop.Core.Data;
+﻿using Workshop.Core.Data.Direct;
 using Workshop.Core.Entity;
 
 namespace Workshop.Core.Service

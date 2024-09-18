@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Workshop.Core.Entity;
+﻿using Workshop.Core.Entity;
 using Workshop.Core.Utility;
 
-namespace Workshop.Core.Data
+namespace Workshop.Core.Data.Direct
 {
     public class IngredientDataSource
     {
@@ -20,19 +15,28 @@ namespace Workshop.Core.Data
         {
             if (File.Exists(path))
             {
-                string ingredientF = File.ReadAllText(path);
-                return DataSerializer.Deserialize<List<Ingredient>>(ingredientF);
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    string data = reader.ReadToEnd();
+                    var tmp = DataSerializer.Deserialize<List<Ingredient>>(data) ?? [];
+                    Ingredient._idCounter = tmp.Count > 0 ? tmp.Select(x => x.Id).Max() + 1 : 0;
+                    return tmp;
+                }
+
             }
-            return null;
+            return [];
         }
 
         /// <summary>
         /// Метод записи в формате JSON и их сериализация
         /// </summary>
 
-        public void Write(List<Ingredient> ingredientF)
+        public void Write(List<Ingredient> data)
         {
-            File.WriteAllText(path, DataSerializer.Serialize(ingredientF));
+            using (StreamWriter writer = new StreamWriter(path, false))
+            {
+                writer.WriteLine(DataSerializer.Serialize(data));
+            }
         }
 
 
