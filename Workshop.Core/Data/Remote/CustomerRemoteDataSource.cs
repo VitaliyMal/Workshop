@@ -52,27 +52,24 @@ namespace Workshop.Core.Data.Remote
         {
             HttpResponseMessage response = await client.PostAsync(
                 ("api/Customers"), JsonContent.Create(customer));
-            response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление заказчика завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateCustomer(UpgradeCustomerDTO customer)
         {
-
             var json = JsonContent.Create(customer);
 
             HttpResponseMessage response = await client.PutAsync(
                 $"api/Customers", json);
-            response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение заказчика завершилось с ошибкой!");
             }
             return;
         }
@@ -80,11 +77,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteCustomer(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Customers/{id}");
-            response.EnsureSuccessStatusCode();
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление заказчика завершилось с ошибкой!");
             }
             return;
         }

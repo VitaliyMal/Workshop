@@ -1,9 +1,5 @@
-﻿using Workshop.Core.Data;
-using Workshop.Core.Data.Remote;
-using Workshop.Core.Entity;
-using Workshop.Core.Service;
+﻿using Workshop.Core.Data.Remote;
 using Workshop.Server.DTOs.CustomerDTOs;
-using Workshop.Server.Entity;
 
 //Customer cust= new Customer (1, "Ivan", "Voronin", "Tver", "VCT", "123S");
 //Product prod = new Product(id:1,description:"map",price:100,production_time:360);
@@ -137,6 +133,7 @@ Console.WriteLine(string.Join(" ", customers));
 
 
 await customerDataSource.UpdateCustomer(new UpgradeCustomerDTO(
+    5,
     "Test_customer222",
     "qq",
     "q",

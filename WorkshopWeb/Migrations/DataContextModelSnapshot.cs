@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Workshop.Server.Data;
 
-
 #nullable disable
 
 namespace Workshop.Server.Migrations
@@ -146,6 +145,25 @@ namespace Workshop.Server.Migrations
                             Id = 4,
                             State_Type_Title = "Canceled"
                         });
+                });
+
+            modelBuilder.Entity("Workshop.Server.Entity.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WorkshopWeb.Entity.Ingredient", b =>

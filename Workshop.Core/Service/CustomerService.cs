@@ -1,29 +1,30 @@
 ﻿//using Workshop.Core.Data.Direct;
 using Workshop.Core.Data.Remote;
 using Workshop.Core.Entity;
+using Workshop.Server.DTOs.CustomerDTOs;
 
 
 namespace Workshop.Core.Service
 {
     public class CustomerService
     {
-        public CustomerDataSource _dataSource;
-        private List<Customer> _customers = new List<Customer>();
+        private CustomerRemoteDataSource _dataSource;
+        //private List<Customer> _customers = new List<Customer>();
 
         public CustomerService(CustomerRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;            
+            _dataSource = dataSource;
         }
 
- 
-        public async Task GetAll()
+
+        public async Task <List<CustomerDTO>> GetAll()
         {
-            await _dataSource.GetCustomers().Select(x => new Customer(x.Id, x.Title)).ToList();
+            return await _dataSource.GetCustomers();
         }
 
-        public Customer Get(int id)
+        public async Task <CustomerDTO?> Get(int id)
         {
-            foreach (Customer customer in _customers)
+            foreach (CustomerDTO customer in await _dataSource.GetCustomers())
             {
                 if (customer.Id == id)
                 {
@@ -32,37 +33,53 @@ namespace Workshop.Core.Service
             }
             return null;
         }
-        public void Create(Customer customer)
-        {
-            _customers.Add(customer);
-            _dataSource.Write(_customers);
 
-        }
-
-        public void Delete(int id)
+        public async Task Create(CustomerDTO customer)
         {
-            foreach (Customer customer in _customers)
+            try
             {
-                if (customer.Id == id)
-                {
-                    _customers.Remove(customer);
-                    break;
-                }
+                await _dataSource.PostCustomer(new AddCustomerDTO(
+                    customer.Name,
+                    customer.LastName,
+                    customer.Adress,
+                    customer.Login,
+                    customer.Password
+                    ));
             }
-
-            _dataSource.Write(_customers);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void Update(Customer customer)
+        public async Task Delete(int id)
         {
-            for (int i = 0; i < _customers.Count; i++)
-                if (customer.Id == _customers[i].Id)
-                    _customers[i] = customer;
-            _dataSource.Write(_customers);
-
+            try
+            {
+                await _dataSource.DeleteCustomer(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-
+        public async Task Update(UpgradeCustomerDTO customer)
+        {
+            try
+            {
+                await _dataSource.UpdateCustomer(new UpgradeCustomerDTO(
+                    customer.id,
+                    customer.Name,
+                    customer.LastName,
+                    customer.Adress,
+                    customer.Login,
+                    customer.Password
+                    ));
+            }
+            catch (Exception ex) { 
+                throw ex;
+            }
+        }
     }
-
 }

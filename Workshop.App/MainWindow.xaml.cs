@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Workshop.App.ViewModels;
-using Workshop.Core.Data;
 using Workshop.Core.Service;
 
 namespace Workshop.App

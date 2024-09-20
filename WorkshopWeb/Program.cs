@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Workshop.Server.Data;
-using Workshop.Server.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
