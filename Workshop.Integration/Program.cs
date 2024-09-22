@@ -113,41 +113,41 @@ using Workshop.Server.DTOs.CustomerDTOs;
 var customerDataSource = new CustomerRemoteDataSource();
 var customers = await customerDataSource.GetCustomers();
 
-Console.WriteLine(string.Join(" ", customers));
+//Console.WriteLine(string.Join(" ", customers));
 
-if (customers.Count > 0)
-    Console.WriteLine(await customerDataSource.GetCustomer(customers.First().Id));
-
-
-await customerDataSource.PostCustomer(new AddCustomerDTO(
-    "Test_customer",
-    "qq",
-    "q",
-    "qqqqqq",
-    "pasqqqqs"
-    ));
+//if (customers.Count > 0)
+//    Console.WriteLine(await customerDataSource.GetCustomer(customers.First().Id));
 
 
-customers = await customerDataSource.GetCustomers();
-Console.WriteLine(string.Join(" ", customers));
+//await customerDataSource.PostCustomer(new AddCustomerDTO(
+//    "Test_customer",
+//    "qq",
+//    "q",
+//    "qqqqqq",
+//    "pasqqqqs"
+//    ));
 
 
-await customerDataSource.UpdateCustomer(new UpgradeCustomerDTO(
-    5,
-    "Test_customer222",
-    "qq",
-    "q",
-    "qqqqq",
-    "passq"
-    ));
+//customers = await customerDataSource.GetCustomers();
+//Console.WriteLine(string.Join(" ", customers));
 
 
-customers = await customerDataSource.GetCustomers();
-Console.WriteLine(string.Join(" ", customers));
+//await customerDataSource.UpdateCustomer(new UpgradeCustomerDTO(
+//    5,
+//    "Test_customer222",
+//    "qq",
+//    "q",
+//    "qqqqq",
+//    "passq"
+//    ));
+
+
+//customers = await customerDataSource.GetCustomers();
+//Console.WriteLine(string.Join(" ", customers));
 
 
 
-await customerDataSource.DeleteCustomer(customers.Last().Id);
+//await customerDataSource.DeleteCustomer(customers.Last().Id);
 
-customers = await customerDataSource.GetCustomers();
-Console.WriteLine(string.Join(" ", customers));
+//customers = await customerDataSource.GetCustomers();
+//Console.WriteLine(string.Join(" ", customers));
