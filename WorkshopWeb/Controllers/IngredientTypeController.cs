@@ -45,10 +45,10 @@ namespace WorkshopWeb.Controllers
 
         // PUT: api/Ingredient_Type/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutIngredient_Type(int id, UpgradeIngredient_TypeDTO ingredient_Type)
         {
-            var existingIngredient_Type = await _context.Ingredient_Type.FindAsync(id);
+            var existingIngredient_Type = await _context.Ingredient_Type.FindAsync(ingredient_Type.id);
 
             if (existingIngredient_Type is null)
             {
@@ -57,7 +57,7 @@ namespace WorkshopWeb.Controllers
 
             _context.Entry(existingIngredient_Type)
                 .CurrentValues
-                .SetValues(ingredient_Type.ToEntity(id));
+                .SetValues(ingredient_Type.ToEntity(ingredient_Type.id));
 
             await _context.SaveChangesAsync();
 

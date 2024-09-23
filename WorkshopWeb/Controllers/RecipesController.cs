@@ -40,10 +40,10 @@ namespace Workshop.Server.Controllers
 
         // PUT: api/Recipes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutRecipe(int id, UpgradeRecipeDTO recipe)
         {
-            var existingRecipe = await _context.Recipe.FindAsync(id);
+            var existingRecipe = await _context.Recipe.FindAsync(recipe.id);
 
             if (existingRecipe is null)
             {
@@ -52,7 +52,7 @@ namespace Workshop.Server.Controllers
 
             _context.Entry(existingRecipe)
                 .CurrentValues
-                .SetValues(recipe.ToEntity(id));
+                .SetValues(recipe.ToEntity(recipe.id));
 
             await _context.SaveChangesAsync();
 

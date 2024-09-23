@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Workshop.Core.Utility;
 using Workshop.Server.DTOs.ProductDTOs;
 //using Workshop.Server.DTOs.CustomerDTOs;
@@ -49,28 +50,26 @@ namespace Workshop.Core.Data.Remote
 
         public async Task PostProduct(AddProductDTO product)
         {
-
             HttpResponseMessage response = await client.PostAsync(
-                "api/Products", new StringContent(DataSerializer.Serialize(product)));
-            response.EnsureSuccessStatusCode();
+                "api/Products", JsonContent.Create(product));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление изделия завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateProduct(UpgradeProductDTO product)
         {
+            var json = JsonContent.Create(product);
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/Products", new StringContent(DataSerializer.Serialize(product)));
-            response.EnsureSuccessStatusCode();
+                $"api/Products", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение изделия завершилось с ошибкой!");
             }
             return;
         }
@@ -78,9 +77,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteProduct(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Products/{id}");
+
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление изделия завершилось с ошибкой!");
             }
             return;
         }

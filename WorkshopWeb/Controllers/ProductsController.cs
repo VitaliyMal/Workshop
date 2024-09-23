@@ -46,10 +46,10 @@ namespace WorkshopWeb.Controllers
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutProduct(int id, UpgradeProductDTO product)
         {
-            var existingProduct = await _context.Product.FindAsync(id);
+            var existingProduct = await _context.Product.FindAsync(product.id);
 
             if (existingProduct is null)
             {
@@ -58,7 +58,7 @@ namespace WorkshopWeb.Controllers
 
             _context.Entry(existingProduct)
                 .CurrentValues
-                .SetValues(product.ToEntity(id));
+                .SetValues(product.ToEntity(product.id));
 
             await _context.SaveChangesAsync();
 

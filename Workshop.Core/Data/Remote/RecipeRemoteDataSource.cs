@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Workshop.Core.Utility;
 using Workshop.Server.DTOs.RecipeDTOs;
 //using Workshop.Server.DTOs.CustomerDTOs;
@@ -49,28 +50,26 @@ namespace Workshop.Core.Data.Remote
 
         public async Task PostRecipe(AddRecipeDTO recipe)
         {
-
             HttpResponseMessage response = await client.PostAsync(
-                "api/Recipes", new StringContent(DataSerializer.Serialize(recipe)));
-            response.EnsureSuccessStatusCode();
+                "api/Recipes", JsonContent.Create(recipe));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление рецепта завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateRecipe(UpgradeRecipeDTO recipe)
         {
+            var json = JsonContent.Create(recipe);
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/Recipes", new StringContent(DataSerializer.Serialize(recipe)));
-            response.EnsureSuccessStatusCode();
+                $"api/Recipes", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение рецепта завершилось с ошибкой!");
             }
             return;
         }
@@ -78,9 +77,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteRecipe(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Recipes/{id}");
+
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление рецепта завершилось с ошибкой!");
             }
             return;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Workshop.Core.Utility;
 //using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.DTOs.OrderDTOs;
@@ -51,26 +52,25 @@ namespace Workshop.Core.Data.Remote
         {
 
             HttpResponseMessage response = await client.PostAsync(
-                "api/Orders", new StringContent(DataSerializer.Serialize(order)));
-            response.EnsureSuccessStatusCode();
+                "api/Orders", JsonContent.Create(order));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление заказа завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateOrder(UpgradeOrderDTO order)
         {
+            var json = JsonContent.Create(order);
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/Orders", new StringContent(DataSerializer.Serialize(order)));
-            response.EnsureSuccessStatusCode();
+                $"api/Orders", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение заказа завершилось с ошибкой!");
             }
             return;
         }
@@ -78,9 +78,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteOrder(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Orders/{id}");
+
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление заказа завершилось с ошибкой!");
             }
             return;
         }

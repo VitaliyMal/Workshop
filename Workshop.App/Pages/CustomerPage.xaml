@@ -89,9 +89,9 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button Content="Добавить" x:Name="Add" Command="{Binding AddCommand}" Click="Add_Click_Window"/>
-            <Button Content="Удалить" x:Name="Delete" Command="{Binding DeleteCommand}"/>
-            <Button Content="Изменить" x:Name="Edit" Command="{Binding EditCommand}" Click="Add_Click_Window"/>
+            <Button Content="Добавить" x:Name="Add" Click="Add_Click_Window"/>
+            <Button Content="Удалить" x:Name="Delete" Click="Delete_Click"/>
+            <Button Content="Изменить" x:Name="Edit" Click="Edit_Click"/>
         </StackPanel>
     </Grid>
 </Page>

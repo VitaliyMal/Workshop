@@ -40,10 +40,10 @@ namespace Workshop.Server.Controllers
 
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutOrder(int id, UpgradeOrderDTO order)
         {
-            var existingOrder = await _context.Order.FindAsync(id);
+            var existingOrder = await _context.Order.FindAsync(order.id);
 
             if (existingOrder is null)
             {
@@ -52,7 +52,7 @@ namespace Workshop.Server.Controllers
 
             _context.Entry(existingOrder)
                 .CurrentValues
-                .SetValues(order.ToEntity(id));
+                .SetValues(order.ToEntity(order.id));
 
             await _context.SaveChangesAsync();
 

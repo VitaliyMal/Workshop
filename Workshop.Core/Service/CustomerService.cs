@@ -1,5 +1,4 @@
-﻿//using Workshop.Core.Data.Direct;
-using Workshop.Core.Data.Remote;
+﻿using Workshop.Core.Data.Remote;
 using Workshop.Core.Entity;
 using Workshop.Server.DTOs.CustomerDTOs;
 
@@ -8,8 +7,7 @@ namespace Workshop.Core.Service
 {
     public class CustomerService
     {
-        private CustomerRemoteDataSource _dataSource;
-        //private List<Customer> _customers = new List<Customer>();
+        private CustomerRemoteDataSource _dataSource;        
 
         public CustomerService(CustomerRemoteDataSource dataSource)
         {

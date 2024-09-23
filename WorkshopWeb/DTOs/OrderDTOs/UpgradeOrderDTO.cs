@@ -4,6 +4,7 @@ namespace Workshop.Server.DTOs.OrderDTOs
 {
     public record class UpgradeOrderDTO
     (
+        [Required] int id,
         string Description,
 
         [Required][Range(1, double.MaxValue)] int Product_id,

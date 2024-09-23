@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Workshop.Core.Utility;
 //using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.DTOs.Ingredient_TypeDTOs;
@@ -51,26 +52,25 @@ namespace Workshop.Core.Data.Remote
         {
 
             HttpResponseMessage response = await client.PostAsync(
-                "api/IngredientType", new StringContent(DataSerializer.Serialize(ingredient_Type)));
-            response.EnsureSuccessStatusCode();
+                "api/IngredientType", JsonContent.Create(ingredient_Type));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление типа ингредиента завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateIngredientType(UpgradeIngredient_TypeDTO ingredient_Type)
         {
+            var json = JsonContent.Create(ingredient_Type);
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/IngredientType", new StringContent(DataSerializer.Serialize(ingredient_Type)));
-            response.EnsureSuccessStatusCode();
+                $"api/IngredientType", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение типа ингредиента завершилось с ошибкой!");
             }
             return;
         }
@@ -78,9 +78,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteIngredientType(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/IngredientType/{id}");
+
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление заказчика завершилось с ошибкой!");
             }
             return;
         }

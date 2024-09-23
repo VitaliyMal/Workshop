@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Workshop.Core.Utility;
 using Workshop.Server.DTOs.IngredientDTOs;
 //using Workshop.Server.DTOs.CustomerDTOs;
@@ -51,26 +52,25 @@ namespace Workshop.Core.Data.Remote
         {
 
             HttpResponseMessage response = await client.PostAsync(
-                "api/Ingredients", new StringContent(DataSerializer.Serialize(ingredient)));
-            response.EnsureSuccessStatusCode();
+                "api/Ingredients", JsonContent.Create(ingredient));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Добавление ингредиента завершилось с ошибкой!");
             }
             return;
         }
 
         public async Task UpdateIngredient(UpdateIngredientDTO ingredient)
         {
+            var json = JsonContent.Create(ingredient);
 
             HttpResponseMessage response = await client.PutAsync(
-                "api/Ingredients", new StringContent(DataSerializer.Serialize(ingredient)));
-            response.EnsureSuccessStatusCode();
+                $"api/Ingredients", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Изменение ингредиента завершилось с ошибкой!");
             }
             return;
         }
@@ -78,9 +78,10 @@ namespace Workshop.Core.Data.Remote
         public async Task DeleteIngredient(int id)
         {
             HttpResponseMessage response = await client.DeleteAsync($"api/Ingredients/{id}");
+
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception();
+                throw new Exception("Удаление ингредиента завершилось с ошибкой!");
             }
             return;
         }

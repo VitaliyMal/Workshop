@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Workshop.App.Core;
 //using Workshop.Core.Entity;
 using Workshop.Core.Service;
@@ -88,7 +89,7 @@ namespace Workshop.App.ViewModels
 
         public async Task Fetch()
         {
-            CustomerList=new ObservableCollection<CustomerDTO>(await customerService.GetAll());
+            CustomerList = new ObservableCollection<CustomerDTO>(await customerService.GetAll());
         }
 
 
@@ -101,11 +102,19 @@ namespace Workshop.App.ViewModels
                     addCommand = new AsyncRelayCommand(() => Task.Run(
                           async () =>
                           {
-                              //Добавить try-catch
-                              await customerService.Create(
-                                  new CustomerDTO (0,Name, LastName, Adress, Login, Password) //// ID = 0 => Автоинкремент зашит в логику добавление EF Core
-                                  );
-                              await Fetch();
+                              try
+                              {
+                                  await customerService.Create(
+                                      new CustomerDTO(0, Name, LastName, Adress, Login, Password)
+                                      );
+                                  await Fetch();
+                              }
+                              catch (Exception ex)
+                              {
+                                  MessageBox.Show(ex.Message);
+                                  //throw(ex);
+                                  ///////////////////// логика когда срабатывает валидатор (поля логин и пароль)
+                              }
                           }))
                     );
 
@@ -123,7 +132,7 @@ namespace Workshop.App.ViewModels
                         {
                             await customerService.Delete(
                                 SelectedCustomer.Id
-                                  );
+                                    );
                             await Fetch();
                         }))
                     );
@@ -138,18 +147,25 @@ namespace Workshop.App.ViewModels
                 return editCommand ??
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
-                      { 
-                          await customerService.Update(
-                            new UpgradeCustomerDTO(
-                                SelectedCustomer.Id,
-                                Name,
-                                LastName,
-                                Adress, 
-                                Login, 
-                                Password                                
-                                )
-                            );
-                          await Fetch();
+                      {
+                          try
+                          {
+                              await customerService.Update(
+                                new UpgradeCustomerDTO(
+                                    SelectedCustomer.Id,
+                                    Name,
+                                    LastName,
+                                    Adress,
+                                    Login,
+                                    Password
+                                    )
+                                );
+                              await Fetch();
+                          }
+                          catch (Exception ex)
+                          {
+                              ////////////////////// логика когда срабатывает валидатор (поля логин и пароль)
+                          }
                       }))
                   );
             }

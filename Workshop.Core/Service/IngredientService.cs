@@ -1,27 +1,29 @@
-﻿using Workshop.Core.Data.Direct;
+﻿//using Workshop.Core.Data.Direct;
+using Workshop.Core.Data.Remote;
 using Workshop.Core.Entity;
+using Workshop.Server.DTOs.CustomerDTOs;
+using Workshop.Server.DTOs.IngredientDTOs;
+using Workshop.Server.Entity;
 
 namespace Workshop.Core.Service
 {
     public class IngredientService
     {
-        public IngredientDataSource _dataSource;
-        private List<Ingredient> _ingredients = [];
-
-        public IngredientService(IngredientDataSource dataSource)
+        public IngredientRemoteDataSource _dataSource;
+        
+        public IngredientService(IngredientRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;
-            _ingredients = _dataSource.Get() ?? new List<Ingredient>();
+            _dataSource = dataSource;            
         }
 
-        public List<Ingredient> GetAll()
+        public async Task <List<IngredientDTO>> GetAll()
         {
-            return _ingredients;
+            return await _dataSource.GetIngredients();
         }
 
-        public Ingredient Get(int id)
+        public async Task <IngredientDTO?> Get(int id)
         {
-            foreach (Ingredient ingredient in _ingredients)
+            foreach (IngredientDTO ingredient in await _dataSource.GetIngredients())
             {
                 if (ingredient.Id == id)
                 {
@@ -30,34 +32,53 @@ namespace Workshop.Core.Service
             }
             return null;
         }
-        public void Create(Ingredient ingredient)
+        public async Task Create(IngredientDTO ingredient)
         {
-            _ingredients.Add(ingredient);
-            _dataSource.Write(_ingredients);
-
-        }
-
-        public void Delete(int id)
-        {
-            foreach (Ingredient ingredient in _ingredients)
+            try
             {
-                if (ingredient.Id == id)
-                {
-                    _ingredients.Remove(ingredient);
-                    break;
-                }
+                await _dataSource.PostIngredient(new AddIngredientDTO(
+                    ingredient.Title,
+                    ingredient.Amount,
+                    ingredient.MinimalAmount,
+                    ingredient.Cost,
+                    ingredient.IngredientType_id
+                    ));
             }
-
-            _dataSource.Write(_ingredients);
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
         }
 
-        public void Update(Ingredient ingredient)
+        public async Task Delete(int id)
         {
-            for (int i = 0; i < _ingredients.Count; i++)
-                if (ingredient.Id == _ingredients[i].Id)
-                    _ingredients[i] = ingredient;
-            _dataSource.Write(_ingredients);
+            try
+            {
+                await _dataSource.DeleteIngredient(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public async Task Update(UpdateIngredientDTO ingredient)
+        {
+            try
+            {
+                await _dataSource.UpdateIngredient(new UpdateIngredientDTO(
+                    ingredient.id,
+                    ingredient.Title,
+                    ingredient.Amount,
+                    ingredient.MinimalAmount,
+                    ingredient.Cost,
+                    ingredient.IngredientType_id
+                    ));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
 
