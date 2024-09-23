@@ -101,8 +101,9 @@ namespace Workshop.App.ViewModels
                     addCommand = new AsyncRelayCommand(() => Task.Run(
                           async () =>
                           {
+                              //Добавить try-catch
                               await customerService.Create(
-                                  new CustomerDTO (0,Name, LastName, Adress, Login, Password) //// ID ??????????
+                                  new CustomerDTO (0,Name, LastName, Adress, Login, Password) //// ID = 0 => Автоинкремент зашит в логику добавление EF Core
                                   );
                               await Fetch();
                           }))
@@ -137,7 +138,7 @@ namespace Workshop.App.ViewModels
                 return editCommand ??
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
-                      {
+                      { 
                           await customerService.Update(
                             new UpgradeCustomerDTO(
                                 SelectedCustomer.Id,
