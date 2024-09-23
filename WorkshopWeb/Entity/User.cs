@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Workshop.Server.Entity
+﻿namespace Workshop.Server.Entity
 {
-    public class User 
+    public class User
 
     {
         public int Id { get; set; }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using Workshop.App.Core;
-using Workshop.Core.Entity;
+//using Workshop.Core.Entity;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.CustomerDTOs;
+using Workshop.Server.Migrations;
 
 namespace Workshop.App.ViewModels
 {
@@ -62,13 +64,13 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private ObservableCollection<Customer> _customerList = new ObservableCollection<Customer>();
-        public ObservableCollection<Customer> CustomerList { get => _customerList; set { _customerList = value; OnPropertyChanged("CustomerList"); } }
+        private ObservableCollection<CustomerDTO> _customerList = new ObservableCollection<CustomerDTO>();
+        public ObservableCollection<CustomerDTO> CustomerList { get => _customerList; set { _customerList = value; OnPropertyChanged("CustomerList"); } }
 
         private CustomerService customerService;
 
-        private Customer _selectedCustomer;
-        public Customer SelectedCustomer
+        private CustomerDTO _selectedCustomer;
+        public CustomerDTO SelectedCustomer
         {
             get => _selectedCustomer;
             set
@@ -81,59 +83,75 @@ namespace Workshop.App.ViewModels
         public CustomerViewModel(CustomerService service)
         {
             customerService = service;
-            CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
+            Task.Run(() => Fetch());
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        public async Task Fetch()
+        {
+            CustomerList=new ObservableCollection<CustomerDTO>(await customerService.GetAll());
+        }
+
+
+        private AsyncRelayCommand addCommand;
+        public AsyncRelayCommand AddCommand
         {
             get
             {
-                return addCommand ??
-                  (addCommand = new RelayCommand(obj =>
-                  {
-                      customerService.Create(
-                          new Customer(Name, LastName, Adress, Login, Password)
-                          );
-                      CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
-                  }));
+                return addCommand ?? (
+                    addCommand = new AsyncRelayCommand(() => Task.Run(
+                          async () =>
+                          {
+                              //Добавить try-catch
+                              await customerService.Create(
+                                  new CustomerDTO (0,Name, LastName, Adress, Login, Password) //// ID = 0 => Автоинкремент зашит в логику добавление EF Core
+                                  );
+                              await Fetch();
+                          }))
+                    );
+
             }
         }
 
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
+        private AsyncRelayCommand deleteCommand;
+        public AsyncRelayCommand DeleteCommand
         {
             get
             {
-                return deleteCommand ??
-                  (deleteCommand = new RelayCommand(obj =>
-                  {
-                      customerService.Delete(
-                          SelectedCustomer.Id
-                          );
-                      CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
-                  }));
+                return deleteCommand ?? (
+                    deleteCommand = new AsyncRelayCommand(() => Task.Run(
+                        async () =>
+                        {
+                            await customerService.Delete(
+                                SelectedCustomer.Id
+                                  );
+                            await Fetch();
+                        }))
+                    );
             }
         }
 
-        private RelayCommand editCommand;
-        public RelayCommand EditCommand
+        private AsyncRelayCommand editCommand;
+        public AsyncRelayCommand EditCommand
         {
             get
             {
                 return editCommand ??
-                  (editCommand = new RelayCommand(obj =>
-                  {
-                      SelectedCustomer.Name = Name;
-                      SelectedCustomer.LastName = LastName;
-                      SelectedCustomer.Adress = Adress;
-                      SelectedCustomer.Login = Login;
-                      SelectedCustomer.Password = Password;
-                      customerService.Update(
-                          SelectedCustomer
-                          );
-                      CustomerList = new ObservableCollection<Customer>(customerService.GetAll());
-                  }));
+                  (editCommand = new AsyncRelayCommand(() => Task.Run(
+                      async () =>
+                      { 
+                          await customerService.Update(
+                            new UpgradeCustomerDTO(
+                                SelectedCustomer.Id,
+                                Name,
+                                LastName,
+                                Adress, 
+                                Login, 
+                                Password                                
+                                )
+                            );
+                          await Fetch();
+                      }))
+                  );
             }
         }
     }

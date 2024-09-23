@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Workshop.App.ViewModels;
-using Workshop.Core.Data;
+using Workshop.Core.Data.Remote;
 using Workshop.Core.Service;
 
 namespace Workshop.App
@@ -10,10 +10,10 @@ namespace Workshop.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CustomerViewModel customerViewModel = new CustomerViewModel(new CustomerService(new CustomerDataSource()));
-        private IngredientViewModel ingredientViewModel = new IngredientViewModel(new IngredientService(new IngredientDataSource()));
-        private OrderViewModel orderViewModel = new OrderViewModel(new OrderService(new OrderDataSource()));
-        private ProductViewModel productViewModel = new ProductViewModel(new ProductService(new ProductDataSource()));
+        private CustomerViewModel customerViewModel = new CustomerViewModel(new CustomerService(new CustomerRemoteDataSource()));
+        //private IngredientViewModel ingredientViewModel = new IngredientViewModel(new IngredientService(new IngredientRemoteDataSource()));
+        //private OrderViewModel orderViewModel = new OrderViewModel(new OrderService(new OrderRemoteDataSource()));
+        //private ProductViewModel productViewModel = new ProductViewModel(new ProductService(new ProductRemoteDataSource()));
 
         public MainWindow()
         {
@@ -27,17 +27,17 @@ namespace Workshop.App
 
         private void IngredientPage_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new IngredientPage(ingredientViewModel);
+            //Main.Content = new IngredientPage(ingredientViewModel);
         }
 
         private void OrderPage_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new OrderPage(orderViewModel);
+            //Main.Content = new OrderPage(orderViewModel);
         }
 
         private void ProductPage_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new ProductPage(productViewModel);
+            //Main.Content = new ProductPage(productViewModel);
         }
     }
 }

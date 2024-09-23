@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Workshop.Server.DTOs.SecurityDTOs;
 using Workshop.Server.Data;
+using Workshop.Server.DTOs.SecurityDTOs;
 using Workshop.Server.Mapper;
 using Workshop.Server.Utility;
 
@@ -23,7 +18,7 @@ namespace Workshop.Server.Controllers
             _context = context;
         }
 
-        
+
         [HttpPost("/register")]
         public async Task<ActionResult<SecurityResponse>> Register(SecurityRequest user)
         {
@@ -31,7 +26,7 @@ namespace Workshop.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-        
+
         [HttpPost("/login")]
         public async Task<ActionResult<SecurityResponse>> Login(SecurityRequest user)
         {

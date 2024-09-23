@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Workshop.Server.Entity
+﻿namespace Workshop.Server.Entity
 {
     public class Customer
     {

@@ -3,6 +3,6 @@
     public record class State_TypeDTO
     (
         int Id,
-        string State_Type_Title ///enum???
+        string State_Type_Title
     );
 }

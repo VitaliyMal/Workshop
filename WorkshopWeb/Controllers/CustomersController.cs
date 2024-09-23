@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Workshop.Server.Data;
 using Workshop.Server.DTOs.CustomerDTOs;
@@ -41,10 +40,10 @@ namespace Workshop.Server.Controllers
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, UpgradeCustomerDTO customer)
+        [HttpPut]
+        public async Task<IActionResult> PutCustomer(UpgradeCustomerDTO customer)
         {
-            var existingCustomer = await _context.Customer.FindAsync(id);
+            var existingCustomer = await _context.Customer.FindAsync(customer.id);
 
             if (existingCustomer is null)
             {
@@ -53,7 +52,7 @@ namespace Workshop.Server.Controllers
 
             _context.Entry(existingCustomer)
                 .CurrentValues
-                .SetValues(customer.ToEntity(id));
+                .SetValues(customer.ToEntity(customer.id));
 
             await _context.SaveChangesAsync();
 

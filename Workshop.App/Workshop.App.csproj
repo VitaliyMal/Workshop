@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Workshop.Core\Workshop.Core.csproj" />
   </ItemGroup>
 

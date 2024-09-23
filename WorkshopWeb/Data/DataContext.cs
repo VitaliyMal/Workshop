@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Workshop.Server.Entity;
 using WorkshopWeb.Entity;
-using Workshop.Server.DTOs.SecurityDTOs;
 
 namespace Workshop.Server.Data
 {
