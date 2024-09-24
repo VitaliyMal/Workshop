@@ -1,27 +1,27 @@
 ﻿//using Workshop.Core.Data.Direct;
 using Workshop.Core.Entity;
+using Workshop.Core.Data.Remote;
+using Workshop.Server.DTOs.OrderDTOs;
 
 namespace Workshop.Core.Service
 {
     public class OrderService
     {
-        public OrderDataSource _dataSource;
-        private List<Order> _orders = [];
-
-        public OrderService(OrderDataSource dataSource)
+        public OrderRemoteDataSource _dataSource;
+        
+        public OrderService(OrderRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;
-            _orders = _dataSource.Get() ?? new List<Order>();
+            _dataSource = dataSource;            
         }
 
-        public List<Order> GetAll()
+        public async Task <List<OrderDTO>> GetAll()
         {
-            return _orders;
+            return await _dataSource.GetOrders();
         }
 
-        public Order Get(int id)
+        public async Task <OrderDTO?> Get(int id)
         {
-            foreach (Order order in _orders)
+            foreach (OrderDTO order in await _dataSource.GetOrders())
             {
                 if (order.OrderId == id)
                 {
@@ -30,34 +30,50 @@ namespace Workshop.Core.Service
             }
             return null;
         }
-        public void Create(Order order)
+        public async Task Create(OrderDTO order)
         {
-            _orders.Add(order);
-            _dataSource.Write(_orders);
-
-        }
-
-        public void Delete(int id)
-        {
-            foreach (Order order in _orders)
+            try
             {
-                if (order.OrderId == id)
-                {
-                    _orders.Remove(order);
-                    break;
-                }
+                await _dataSource.PostOrder(new AddOrderDTO(
+                    order.Description,
+                    order.Product_id,
+                    order.Customer_id,
+                    order.State_Type_id
+                    ));
             }
-
-            _dataSource.Write(_orders);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void Update(Order order)
+        public async Task Delete(int id)
         {
-            for (int i = 0; i < _orders.Count; i++)
-                if (order.OrderId == _orders[i].OrderId)
-                    _orders[i] = order;
-            _dataSource.Write(_orders);
+            try
+            {
+                await _dataSource.DeleteOrder(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public async Task Update(UpgradeOrderDTO order)
+        {
+            try
+            {
+                await _dataSource.UpdateOrder(new UpgradeOrderDTO(
+                    order.id,
+                    order.Description,
+                    order.Product_id,
+                    order.Customer_id,
+                    order.State_Type_id
+                    ));
+            }
+            catch (Exception ex) { 
+                throw ex;
+            }
         }
 
 
