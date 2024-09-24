@@ -22,7 +22,7 @@ namespace Workshop.App.ViewModels
         public ObservableCollection<Product> ProductList { get => _productList; set { _productList = value; OnPropertyChanged("ProductList"); } }
 
         private ProductService productService;
-
+// проверка
         private Product _selectedProduct;
         public Product SelectedProduct
         {
