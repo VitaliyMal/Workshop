@@ -32,7 +32,7 @@ namespace Workshop.Core.Data.Remote
             return product;
         }
 
-        public async Task<List<ProductDTO>> GetProduct()
+        public async Task<List<ProductDTO>> GetProducts()
         {
 
             HttpResponseMessage response = await client.GetAsync(

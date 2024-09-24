@@ -7,7 +7,7 @@ namespace Workshop.Core.Service
 {
     public class OrderService
     {
-        public OrderRemoteDataSource _dataSource;
+        private OrderRemoteDataSource _dataSource;
         
         public OrderService(OrderRemoteDataSource dataSource)
         {

@@ -1,27 +1,26 @@
-﻿//using Workshop.Core.Data.Direct;
-using Workshop.Core.Entity;
+﻿using Workshop.Core.Entity;
+using Workshop.Core.Data.Remote;
+using Workshop.Server.DTOs.ProductDTOs;
 
 namespace Workshop.Core.Service
 {
     public class ProductService
     {
-        public ProductDataSource _dataSource;
-        private List<Product> _products = [];
+        private ProductRemoteDataSource _dataSource;
 
-        public ProductService(ProductDataSource dataSource)
+        public ProductService(ProductRemoteDataSource dataSource)
         {
             _dataSource = dataSource;
-            _products = _dataSource.Get() ?? new List<Product>();
         }
 
-        public List<Product> GetAll()
+        public async Task <List<ProductDTO>> GetAll()
         {
-            return _products;
+            return await _dataSource.GetProducts();
         }
 
-        public Product Get(int id)
+        public async Task <ProductDTO?> Get(int id)
         {
-            foreach (Product product in _products)
+            foreach (ProductDTO product in await _dataSource.GetProducts())
             {
                 if (product.Id == id)
                 {
@@ -30,36 +29,50 @@ namespace Workshop.Core.Service
             }
             return null;
         }
-        public void Create(Product product)
+        public async Task Create(ProductDTO product)
         {
-            _products.Add(product);
-            _dataSource.Write(_products);
-
-        }
-
-        public void Delete(int id)
-        {
-            foreach (Product product in _products)
+            try
             {
-                if (product.Id == id)
-                {
-                    _products.Remove(product);
-                    break;
-                }
+                await _dataSource.PostProduct(new AddProductDTO(
+                    product.Name,
+                    product.Description,
+                    product.Price,
+                    product.Production_time
+                    ));
             }
-
-            _dataSource.Write(_products);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void Update(Product product)
+        public async Task Delete(int id)
         {
-            for (int i = 0; i < _products.Count; i++)
-                if (product.Id == _products[i].Id)
-                    _products[i] = product;
-            _dataSource.Write(_products);
-
+            try
+            {
+                await _dataSource.DeleteProduct(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-
+        public async Task Update(UpgradeProductDTO product)
+        {
+            try
+            {
+                await _dataSource.UpdateProduct(new UpgradeProductDTO(
+                    product.id,
+                    product.Name,
+                    product.Description,
+                    product.Price,
+                    product.Production_time
+                    ));
+            }
+            catch (Exception ex) { 
+                throw ex;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Workshop.Core.Service
 {
     public class IngredientService
     {
-        public IngredientRemoteDataSource _dataSource;
+        private IngredientRemoteDataSource _dataSource;
         
         public IngredientService(IngredientRemoteDataSource dataSource)
         {
