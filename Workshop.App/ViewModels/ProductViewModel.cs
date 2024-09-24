@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Workshop.App.Core;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.ProductDTOs;
 
 namespace Workshop.App.ViewModels
 {
@@ -104,41 +106,41 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
-        {
-            get
-            {
-                return deleteCommand ??
-                  (deleteCommand = new RelayCommand(obj =>
-                  {
-                      productService.Delete(
-                          SelectedProduct.Id
-                          );
-                      ProductList = new ObservableCollection<Product>(productService.GetAll());
-                  }));
-            }
-        }
+        //private RelayCommand deleteCommand;
+        //public RelayCommand DeleteCommand
+        //{
+        //    get
+        //    {
+        //        return deleteCommand ??
+        //          (deleteCommand = new RelayCommand(obj =>
+        //          {
+        //              productService.Delete(
+        //                  SelectedProduct.Id
+        //                  );
+        //              ProductList = new ObservableCollection<Product>(productService.GetAll());
+        //          }));
+        //    }
+        //}
 
-        private RelayCommand editCommand;
-        public RelayCommand EditCommand
-        {
-            get
-            {
-                return editCommand ??
-                  (editCommand = new RelayCommand(obj =>
-                  {
-                      SelectedProduct.Name = Input;
-                      SelectedProduct.Description = Input;
-                      SelectedProduct.Price = Convert.ToInt16(Input);
-                      SelectedProduct.Production_time = Convert.ToInt16(Input);
-                      //SelectedProduct.Ingredients = Input;
-                      productService.Update(
-                          SelectedProduct
-                          );
-                      ProductList = new ObservableCollection<Product>(productService.GetAll());
-                  }));
-            }
-        }
+        //private RelayCommand editCommand;
+        //public RelayCommand EditCommand
+        //{
+        //    get
+        //    {
+        //        return editCommand ??
+        //          (editCommand = new RelayCommand(obj =>
+        //          {
+        //              SelectedProduct.Name = Input;
+        //              SelectedProduct.Description = Input;
+        //              SelectedProduct.Price = Convert.ToInt16(Input);
+        //              SelectedProduct.Production_time = Convert.ToInt16(Input);
+        //              //SelectedProduct.Ingredients = Input;
+        //              productService.Update(
+        //                  SelectedProduct
+        //                  );
+        //              ProductList = new ObservableCollection<Product>(productService.GetAll());
+        //          }));
+        //    }
+        //}
     }
 }

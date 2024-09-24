@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Workshop.App.Core;
-using Workshop.Core.Entity;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.OrderDTOs;
 
 namespace Workshop.App.ViewModels
 {

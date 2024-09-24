@@ -23,7 +23,7 @@ namespace Workshop.Core.Service
         {
             foreach (OrderDTO order in await _dataSource.GetOrders())
             {
-                if (order.OrderId == id)
+                if (order.Id == id)
                 {
                     return order;
                 }
