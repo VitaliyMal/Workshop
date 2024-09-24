@@ -7,24 +7,57 @@ namespace Workshop.App.ViewModels
 {
     public class OrderViewModel : ObservableObject
     {
-        private string _input = string.Empty;
-        public string Input
+        private string _description = string.Empty;
+        public string Description
         {
-            get => _input;
+            get => _description;
             set
             {
-                _input = value;
-                OnPropertyChanged("Input");
+                _description = value;
+                OnPropertyChanged("Description");
             }
         }
 
-        private ObservableCollection<Order> _orderList = new ObservableCollection<Order>();
-        public ObservableCollection<Order> OrderList { get => _orderList; set { _orderList = value; OnPropertyChanged("OrderList"); } }
+        private int _product_id = 0; ////////////// нужны ли?
+        public int Product_id
+        {
+            get => _product_id;
+            set
+            {
+                _product_id = value;
+                OnPropertyChanged("Product_id");
+            }
+        }
+
+        private int _customer_id = 0; ////////////// нужны ли?
+        public int Customer_id
+        {
+            get => _customer_id;
+            set
+            {
+                _customer_id = value;
+                OnPropertyChanged("Customer_id");
+            }
+        }
+
+        private int _state_Type_id = 0; ////////////// нужны ли?
+        public int State_Type_id
+        {
+            get => _state_Type_id;
+            set
+            {
+                _state_Type_id = value;
+                OnPropertyChanged("State_Type_id");
+            }
+        }
+
+        private ObservableCollection<OrderDTO> _orderList = new ObservableCollection<OrderDTO>();
+        public ObservableCollection<OrderDTO> OrderList { get => _orderList; set { _orderList = value; OnPropertyChanged("OrderList"); } }
 
         private OrderService orderService;
 
-        private Order _selectedOrder;
-        public Order SelectedOrder
+        private OrderDTO _selectedOrder;
+        public OrderDTO SelectedOrder
         {
             get => _selectedOrder;
             set
@@ -37,62 +70,91 @@ namespace Workshop.App.ViewModels
         public OrderViewModel(OrderService service)
         {
             orderService = service;
-            OrderList = new ObservableCollection<Order>(orderService.GetAll());
+            Task.Run(() => Fetch());
         }
 
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        public async Task Fetch()
+        {
+            OrderList = new ObservableCollection<OrderDTO>(await orderService.GetAll());
+        }
+
+
+        private AsyncRelayCommand addCommand;
+        public AsyncRelayCommand AddCommand
         {
             get
             {
-                return addCommand ??
-                  (addCommand = new RelayCommand(obj =>
-                  {
-                      orderService.Create(
-                          new Order(Convert.ToInt32(Input)) // тут возможны проблемы с вводом
-                          );
-                      OrderList = new ObservableCollection<Order>(orderService.GetAll());
-                  }));
+                return addCommand ?? (
+                    addCommand = new AsyncRelayCommand(() => Task.Run(
+                          async () =>
+                          {
+                              try
+                              {
+                                  await orderService.Create(
+                                      new OrderDTO(0, Description, Product_id, Customer_id, State_Type_id)
+                                      );
+                                  await Fetch();
+                              }
+                              catch (Exception ex)
+                              {
+                                  MessageBox.Show(ex.Message);
+                                  //throw(ex);
+                                  ///////////////////// логика когда срабатывает 
+                              }
+                          }))
+                    );
             }
         }
 
-        private RelayCommand deleteCommand;
-        public RelayCommand DeleteCommand
+        private AsyncRelayCommand deleteCommand;
+        public AsyncRelayCommand DeleteCommand
         {
             get
             {
-                return deleteCommand ??
-                  (deleteCommand = new RelayCommand(obj =>
-                  {
-                      orderService.Delete(
-                          SelectedOrder.OrderId
-                          );
-                      OrderList = new ObservableCollection<Order>(orderService.GetAll());
-                  }));
+                return deleteCommand ?? (
+                    deleteCommand = new AsyncRelayCommand(() => Task.Run(
+                        async () =>
+                        {
+                            await orderService.Delete(
+                                SelectedOrder.Id
+                                    );
+                            await Fetch();
+                        }))
+                    );
             }
         }
 
-
-        //Реализовать в дальнейшем
-        //private RelayCommand editCommand;
-        //public RelayCommand EditCommand
-        //{
-        //    get
-        //    {
-        //        return editCommand ??
-        //          (editCommand = new RelayCommand(obj =>
-        //          {
-        //              SelectedOrder.State = Input;
-        //              SelectedCustomer.Name = Input;
-        //              SelectedCustomer.Adress = Input;
-        //              SelectedCustomer.Login = Input;
-        //              SelectedCustomer.Password = Input;
-        //              customerService.Update(
-        //                  SelectedCustomer
-        //                  );
-        //              OrderList = new ObservableCollection<Order>(customerService.GetAll());
-        //          }));
-        //    }
-        //}
+        
+        private AsyncRelayCommand editCommand;
+        public AsyncRelayCommand EditCommand
+        {
+           get
+           {
+                return editCommand ??
+                  (editCommand = new AsyncRelayCommand(() => Task.Run(
+                      async () =>
+                      {
+                          try
+                          {
+                              await orderService.Update(
+                                new UpgradeOrderDTO(
+                                    SelectedOrder.Id,
+                                    Description,
+                                    Product_id,
+                                    Customer_id,
+                                    State_Type_id
+                                    )
+                                );
+                              await Fetch();
+                          }
+                          catch (Exception ex)
+                          {
+                            MessageBox.Show(ex.Message);
+                              ////////////////////// логика когда срабатывает 
+                          }
+                      }))
+                  );
+           }
+        }
     }
 }

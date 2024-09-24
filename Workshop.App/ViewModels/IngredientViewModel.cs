@@ -108,7 +108,7 @@ namespace Workshop.App.ViewModels
                               catch (Exception ex)
                               {
                                   MessageBox.Show(ex.Message);
-                                  //throw(ex);                                  
+                                  //throw(ex);                      ////////////////////// логика когда срабатывает             
                               }
                           }))
                     );
@@ -158,6 +158,7 @@ namespace Workshop.App.ViewModels
                           }
                           catch (Exception ex)
                           {
+                            MessageBox.Show(ex.Message);
                               ////////////////////// логика когда срабатывает                              
                           }
                       }))
