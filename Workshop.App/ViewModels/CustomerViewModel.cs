@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using Workshop.App.Core;
-//using Workshop.Core.Entity;
 using Workshop.Core.Service;
 using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.Migrations;
