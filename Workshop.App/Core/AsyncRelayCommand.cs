@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Workshop.App.Core
 {
@@ -23,7 +18,7 @@ namespace Workshop.App.Core
             return _canExecute == null || _canExecute();
         }
 
-        public async void Execute(object parameter)
+        public async Task Execute(object parameter)
         {
             await _execute();
         }

@@ -84,75 +84,75 @@ namespace Workshop.App.ViewModels
         {
             get
             {
-                  return addCommand ?? (
-                    addCommand = new AsyncRelayCommand(() => Task.Run(
-                          async () =>
-                          {
-                              try
-                              {
-                                  await productService.Create(
-                                      new ProductDTO(0, Name , Description , Price , Production_time)
-                                      );
-                                  await Fetch();
-                              }
-                              catch (Exception ex)
-                              {
-                                  MessageBox.Show(ex.Message);
-                                  //throw(ex);
-                                  ///////////////////// логика когда срабатывает 
-                              }
-                          }))
-                    );
+                return addCommand ?? (
+                  addCommand = new AsyncRelayCommand(() => Task.Run(
+                        async () =>
+                        {
+                            try
+                            {
+                                await productService.Create(
+                                    new ProductDTO(0, Name, Description, Price, Production_time)
+                                    );
+                                await Fetch();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                //throw(ex);
+                                ///////////////////// логика когда срабатывает 
+                            }
+                        }))
+                  );
             }
         }
 
         private AsyncRelayCommand deleteCommand;
         public AsyncRelayCommand DeleteCommand
         {
-           get
-           {
-               return deleteCommand ?? (
-                    deleteCommand = new AsyncRelayCommand(() => Task.Run(
-                        async () =>
-                        {
-                            await productService.Delete(
-                                SelectedProduct.Id
-                                    );
-                            await Fetch();
-                        }))
-                    );
-           }
+            get
+            {
+                return deleteCommand ?? (
+                     deleteCommand = new AsyncRelayCommand(() => Task.Run(
+                         async () =>
+                         {
+                             await productService.Delete(
+                                 SelectedProduct.Id
+                                     );
+                             await Fetch();
+                         }))
+                     );
+            }
         }
 
         private AsyncRelayCommand editCommand;
         public AsyncRelayCommand EditCommand
         {
-           get
-           {
-               return editCommand ??
-                  (editCommand = new AsyncRelayCommand(() => Task.Run(
-                      async () =>
-                      {
-                          try
-                          {
-                              await productService.Update(
-                                new UpgradeProductDTO(
-                                    SelectedProduct.Id,
-                                    Name,
-                                    Description,
-                                    Price,
-                                    Production_time
-                                    )
-                                );
-                              await Fetch();
-                          }
-                          catch (Exception ex)
-                          {
-                              ////////////////////// логика когда срабатывает валидатор (поля логин и пароль)
-                          }
-                      }))
-                  );
-           }
+            get
+            {
+                return editCommand ??
+                   (editCommand = new AsyncRelayCommand(() => Task.Run(
+                       async () =>
+                       {
+                           try
+                           {
+                               await productService.Update(
+                                 new UpgradeProductDTO(
+                                     SelectedProduct.Id,
+                                     Name,
+                                     Description,
+                                     Price,
+                                     Production_time
+                                     )
+                                 );
+                               await Fetch();
+                           }
+                           catch (Exception ex)
+                           {
+                               ////////////////////// логика когда срабатывает валидатор (поля логин и пароль)
+                           }
+                       }))
+                   );
+            }
         }
     }
 }

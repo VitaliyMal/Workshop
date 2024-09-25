@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Workshop.Core.Data.Remote;
+using Workshop.Server.DTOs.Ingredient_TypeDTOs;
 
 namespace Workshop.Core.Service
 {
     public class Ingredient_TypeService
     {
-        private Ingredient_TypeRemoteDataSource _dataSource;        
+        private Ingredient_TypeRemoteDataSource _dataSource;
 
         public Ingredient_TypeService(Ingredient_TypeRemoteDataSource dataSource)
         {
@@ -16,12 +13,12 @@ namespace Workshop.Core.Service
         }
 
 
-        public async Task <List<Ingredient_TypeDTO>> GetAll()
+        public async Task<List<Ingredient_TypeDTO>> GetAll()
         {
             return await _dataSource.GetIngredient_Types();
         }
 
-        public async Task <Ingredient_TypeDTO?> Get(int id)
+        public async Task<Ingredient_TypeDTO?> Get(int id)
         {
             foreach (Ingredient_TypeDTO ingredient_Type in await _dataSource.GetIngredient_Types())
             {
@@ -51,7 +48,7 @@ namespace Workshop.Core.Service
         {
             try
             {
-                await _dataSource.DeleteIngredientType(id); 
+                await _dataSource.DeleteIngredientType(id);
             }
             catch (Exception ex)
             {
@@ -59,16 +56,17 @@ namespace Workshop.Core.Service
             }
         }
 
-        public async Task Update(Ingredient_TypeDTO ingredient_Type)
+        public async Task Update(UpgradeIngredient_TypeDTO ingredient_Type)
         {
             try
             {
-                await _dataSource.UpgradeIngredient_TypeDTO(new UpgradeIngredient_TypeDTO(
+                await _dataSource.UpdateIngredient_Type(new UpgradeIngredient_TypeDTO(
                     ingredient_Type.id,
                     ingredient_Type.IngredientTypeTitle
                     ));
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

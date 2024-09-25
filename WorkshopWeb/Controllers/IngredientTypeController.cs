@@ -46,7 +46,7 @@ namespace WorkshopWeb.Controllers
         // PUT: api/Ingredient_Type/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutIngredient_Type(int id, UpgradeIngredient_TypeDTO ingredient_Type)
+        public async Task<IActionResult> PutIngredient_Type(UpgradeIngredient_TypeDTO ingredient_Type)
         {
             var existingIngredient_Type = await _context.Ingredient_Type.FindAsync(ingredient_Type.id);
 

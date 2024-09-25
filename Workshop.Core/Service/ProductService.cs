@@ -1,5 +1,4 @@
-﻿using Workshop.Core.Entity;
-using Workshop.Core.Data.Remote;
+﻿using Workshop.Core.Data.Remote;
 using Workshop.Server.DTOs.ProductDTOs;
 
 namespace Workshop.Core.Service
@@ -13,12 +12,12 @@ namespace Workshop.Core.Service
             _dataSource = dataSource;
         }
 
-        public async Task <List<ProductDTO>> GetAll()
+        public async Task<List<ProductDTO>> GetAll()
         {
             return await _dataSource.GetProducts();
         }
 
-        public async Task <ProductDTO?> Get(int id)
+        public async Task<ProductDTO?> Get(int id)
         {
             foreach (ProductDTO product in await _dataSource.GetProducts())
             {
@@ -70,7 +69,8 @@ namespace Workshop.Core.Service
                     product.Production_time
                     ));
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

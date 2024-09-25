@@ -41,7 +41,7 @@ namespace Workshop.Server.Controllers
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutOrder(int id, UpgradeOrderDTO order)
+        public async Task<IActionResult> PutOrder(UpgradeOrderDTO order)
         {
             var existingOrder = await _context.Order.FindAsync(order.id);
 

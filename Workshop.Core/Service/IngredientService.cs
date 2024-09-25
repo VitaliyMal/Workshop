@@ -1,27 +1,24 @@
 ﻿//using Workshop.Core.Data.Direct;
 using Workshop.Core.Data.Remote;
-using Workshop.Core.Entity;
-using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.DTOs.IngredientDTOs;
-using Workshop.Server.Entity;
 
 namespace Workshop.Core.Service
 {
     public class IngredientService
     {
         private IngredientRemoteDataSource _dataSource;
-        
+
         public IngredientService(IngredientRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;            
+            _dataSource = dataSource;
         }
 
-        public async Task <List<IngredientDTO>> GetAll()
+        public async Task<List<IngredientDTO>> GetAll()
         {
             return await _dataSource.GetIngredients();
         }
 
-        public async Task <IngredientDTO?> Get(int id)
+        public async Task<IngredientDTO?> Get(int id)
         {
             foreach (IngredientDTO ingredient in await _dataSource.GetIngredients())
             {
@@ -44,7 +41,7 @@ namespace Workshop.Core.Service
                     ingredient.IngredientType_id
                     ));
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }

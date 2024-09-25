@@ -1,5 +1,4 @@
 ﻿//using Workshop.Core.Data.Direct;
-using Workshop.Core.Entity;
 using Workshop.Core.Data.Remote;
 using Workshop.Server.DTOs.OrderDTOs;
 
@@ -8,18 +7,18 @@ namespace Workshop.Core.Service
     public class OrderService
     {
         private OrderRemoteDataSource _dataSource;
-        
+
         public OrderService(OrderRemoteDataSource dataSource)
         {
-            _dataSource = dataSource;            
+            _dataSource = dataSource;
         }
 
-        public async Task <List<OrderDTO>> GetAll()
+        public async Task<List<OrderDTO>> GetAll()
         {
             return await _dataSource.GetOrders();
         }
 
-        public async Task <OrderDTO?> Get(int id)
+        public async Task<OrderDTO?> Get(int id)
         {
             foreach (OrderDTO order in await _dataSource.GetOrders())
             {
@@ -71,7 +70,8 @@ namespace Workshop.Core.Service
                     order.State_Type_id
                     ));
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

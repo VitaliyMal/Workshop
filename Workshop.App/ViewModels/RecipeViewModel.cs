@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
+using Workshop.App.Core;
+using Workshop.Core.Service;
+using Workshop.Server.DTOs.RecipeDTOs;
 
 namespace Workshop.App.ViewModels
 {
     public class RecipeViewModel : ObservableObject
     {
-        private string _id_Ingredient = string.Empty;
-        public string Id_Ingredient
+        private int _id_Ingredient = 0;
+        public int Id_Ingredient
         {
             get => _id_Ingredient;
             set
@@ -19,8 +19,8 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private string _id_Product = string.Empty;
-        public string Id_Product
+        private int _id_Product;
+        public int Id_Product
         {
             get => _id_Product;
             set
@@ -70,7 +70,7 @@ namespace Workshop.App.ViewModels
                               try
                               {
                                   await recipeService.Create(
-                                      new RecipeDTO(0, Id_Ingredient , Id_Product)
+                                      new RecipeDTO(0, Id_Ingredient, Id_Product)
                                       );
                                   await Fetch();
                               }

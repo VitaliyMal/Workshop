@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Workshop.Core.Data.Remote;
+using Workshop.Server.DTOs.RecipeDTOs;
 
 namespace Workshop.Core.Service
 {
     public class RecipeService
     {
-        private RecipeRemoteDataSource _dataSource;        
+        private RecipeRemoteDataSource _dataSource;
 
         public RecipeService(RecipeRemoteDataSource dataSource)
         {
@@ -16,12 +13,12 @@ namespace Workshop.Core.Service
         }
 
 
-        public async Task <List<RecipeDTO>> GetAll()
+        public async Task<List<RecipeDTO>> GetAll()
         {
             return await _dataSource.GetRecipes();
         }
 
-        public async Task <RecipeDTO?> Get(int id)
+        public async Task<RecipeDTO?> Get(int id)
         {
             foreach (RecipeDTO recipe in await _dataSource.GetRecipes())
             {
@@ -70,7 +67,8 @@ namespace Workshop.Core.Service
                     recipe.Id_Product
                     ));
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

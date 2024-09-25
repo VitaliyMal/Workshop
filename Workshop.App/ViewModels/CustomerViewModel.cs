@@ -3,7 +3,6 @@ using System.Windows;
 using Workshop.App.Core;
 using Workshop.Core.Service;
 using Workshop.Server.DTOs.CustomerDTOs;
-using Workshop.Server.Migrations;
 
 namespace Workshop.App.ViewModels
 {
@@ -110,8 +109,8 @@ namespace Workshop.App.ViewModels
                               }
                               catch (Exception ex)
                               {
-                                  MessageBox.Show(ex.Message);
-                                  //throw(ex);
+                                  //MessageBox.Show(ex.Message);
+                                  throw(ex);
                                   ///////////////////// логика когда срабатывает валидатор (поля логин и пароль)
                               }
                           }))

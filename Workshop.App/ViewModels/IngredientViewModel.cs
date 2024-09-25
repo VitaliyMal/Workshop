@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using Workshop.App.Core;
 //using Workshop.Core.Entity;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.IngredientDTOs;
 
 namespace Workshop.App.ViewModels
 {
@@ -51,7 +53,7 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private int _ingredientType_id = 0; // нужен ли он ???????????????????????????????????????????????????
+        private int _ingredientType_id = 0; // не нужно, пробуем сюда подавать VM и в остальных так же
         public int IngredientType_id
         {
             get => _ingredientType_id;
@@ -158,7 +160,7 @@ namespace Workshop.App.ViewModels
                           }
                           catch (Exception ex)
                           {
-                            MessageBox.Show(ex.Message);
+                              MessageBox.Show(ex.Message);
                               ////////////////////// логика когда срабатывает                              
                           }
                       }))

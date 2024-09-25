@@ -61,7 +61,7 @@ namespace Workshop.Core.Data.Remote
             return;
         }
 
-        public async Task UpdateIngredientType(UpgradeIngredient_TypeDTO ingredient_Type)
+        public async Task UpdateIngredient_Type(UpgradeIngredient_TypeDTO ingredient_Type)
         {
             var json = JsonContent.Create(ingredient_Type);
 

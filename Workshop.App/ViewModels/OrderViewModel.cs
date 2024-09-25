@@ -125,12 +125,12 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        
+
         private AsyncRelayCommand editCommand;
         public AsyncRelayCommand EditCommand
         {
-           get
-           {
+            get
+            {
                 return editCommand ??
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
@@ -150,12 +150,12 @@ namespace Workshop.App.ViewModels
                           }
                           catch (Exception ex)
                           {
-                            MessageBox.Show(ex.Message);
+                              MessageBox.Show(ex.Message);
                               ////////////////////// логика когда срабатывает 
                           }
                       }))
                   );
-           }
+            }
         }
     }
 }

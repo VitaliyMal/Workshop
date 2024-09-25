@@ -1,5 +1,4 @@
 ﻿using Workshop.Core.Data.Remote;
-using Workshop.Core.Entity;
 using Workshop.Server.DTOs.CustomerDTOs;
 
 
@@ -7,7 +6,7 @@ namespace Workshop.Core.Service
 {
     public class CustomerService
     {
-        private CustomerRemoteDataSource _dataSource;        
+        private CustomerRemoteDataSource _dataSource;
 
         public CustomerService(CustomerRemoteDataSource dataSource)
         {
@@ -15,12 +14,12 @@ namespace Workshop.Core.Service
         }
 
 
-        public async Task <List<CustomerDTO>> GetAll()
+        public async Task<List<CustomerDTO>> GetAll()
         {
             return await _dataSource.GetCustomers();
         }
 
-        public async Task <CustomerDTO?> Get(int id)
+        public async Task<CustomerDTO?> Get(int id)
         {
             foreach (CustomerDTO customer in await _dataSource.GetCustomers())
             {
@@ -75,7 +74,8 @@ namespace Workshop.Core.Service
                     customer.Password
                     ));
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

@@ -1,5 +1,4 @@
 ﻿using Workshop.Core.Data.Remote;
-using Workshop.Server.DTOs.CustomerDTOs;
 
 //Customer cust= new Customer (1, "Ivan", "Voronin", "Tver", "VCT", "123S");
 //Product prod = new Product(id:1,description:"map",price:100,production_time:360);

@@ -41,7 +41,7 @@ namespace Workshop.Server.Controllers
         // PUT: api/Recipes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public async Task<IActionResult> PutRecipe(int id, UpgradeRecipeDTO recipe)
+        public async Task<IActionResult> PutRecipe(UpgradeRecipeDTO recipe)
         {
             var existingRecipe = await _context.Recipe.FindAsync(recipe.id);
 
