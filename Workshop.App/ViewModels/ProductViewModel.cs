@@ -91,7 +91,7 @@ namespace Workshop.App.ViewModels
                               try
                               {
                                   await productService.Create(
-                                      new ProductDTO(0, Name,Description,Price,Production_time)
+                                      new ProductDTO(0, Name , Description , Price , Production_time)
                                       );
                                   await Fetch();
                               }
@@ -106,41 +106,53 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        //private RelayCommand deleteCommand;
-        //public RelayCommand DeleteCommand
-        //{
-        //    get
-        //    {
-        //        return deleteCommand ??
-        //          (deleteCommand = new RelayCommand(obj =>
-        //          {
-        //              productService.Delete(
-        //                  SelectedProduct.Id
-        //                  );
-        //              ProductList = new ObservableCollection<Product>(productService.GetAll());
-        //          }));
-        //    }
-        //}
+        private AsyncRelayCommand deleteCommand;
+        public AsyncRelayCommand DeleteCommand
+        {
+           get
+           {
+               return deleteCommand ?? (
+                    deleteCommand = new AsyncRelayCommand(() => Task.Run(
+                        async () =>
+                        {
+                            await productService.Delete(
+                                SelectedProduct.Id
+                                    );
+                            await Fetch();
+                        }))
+                    );
+           }
+        }
 
-        //private RelayCommand editCommand;
-        //public RelayCommand EditCommand
-        //{
-        //    get
-        //    {
-        //        return editCommand ??
-        //          (editCommand = new RelayCommand(obj =>
-        //          {
-        //              SelectedProduct.Name = Input;
-        //              SelectedProduct.Description = Input;
-        //              SelectedProduct.Price = Convert.ToInt16(Input);
-        //              SelectedProduct.Production_time = Convert.ToInt16(Input);
-        //              //SelectedProduct.Ingredients = Input;
-        //              productService.Update(
-        //                  SelectedProduct
-        //                  );
-        //              ProductList = new ObservableCollection<Product>(productService.GetAll());
-        //          }));
-        //    }
-        //}
+        private AsyncRelayCommand editCommand;
+        public AsyncRelayCommand EditCommand
+        {
+           get
+           {
+               return editCommand ??
+                  (editCommand = new AsyncRelayCommand(() => Task.Run(
+                      async () =>
+                      {
+                          try
+                          {
+                              await productService.Update(
+                                new UpgradeProductDTO(
+                                    SelectedProduct.Id,
+                                    Name,
+                                    Description,
+                                    Price,
+                                    Production_time
+                                    )
+                                );
+                              await Fetch();
+                          }
+                          catch (Exception ex)
+                          {
+                              ////////////////////// логика когда срабатывает валидатор (поля логин и пароль)
+                          }
+                      }))
+                  );
+           }
+        }
     }
 }
