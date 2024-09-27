@@ -2,7 +2,10 @@
 using System.Windows;
 using Workshop.App.Core;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.CustomerDTOs;
 using Workshop.Server.DTOs.OrderDTOs;
+using Workshop.Server.DTOs.ProductDTOs;
+using Workshop.Server.DTOs.State_TypeDTOs;
 
 namespace Workshop.App.ViewModels
 {
@@ -19,39 +22,89 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private int _product_id = 0; ////////////// нужны ли?
-        public int Product_id
+        //private int _product_id = 0; ////////////// нужны ли?
+        //public int Product_id
+        //{
+        //    get => _product_id;
+        //    set
+        //    {
+        //        _product_id = value;
+        //        OnPropertyChanged("Product_id");
+        //    }
+        //}
+
+        //private int _customer_id = 0; ////////////// нужны ли?
+        //public int Customer_id
+        //{
+        //    get => _customer_id;
+        //    set
+        //    {
+        //        _customer_id = value;
+        //        OnPropertyChanged("Customer_id");
+        //    }
+        //}
+
+        //private int _state_Type_id = 0; ////////////// нужны ли?
+        //public int State_Type_id
+        //{
+        //    get => _state_Type_id;
+        //    set
+        //    {
+        //        _state_Type_id = value;
+        //        OnPropertyChanged("State_Type_id");
+        //    }
+        //}
+
+        private ObservableCollection<ProductDTO> _productList = new ObservableCollection<ProductDTO>();
+        public ObservableCollection<ProductDTO> ProductList { get => _productList; set { _productList = value; OnPropertyChanged("ProductList"); } }
+
+        private ProductService productService;
+
+        private ProductDTO _selectedProduct;
+        public ProductDTO SelectedProduct
         {
-            get => _product_id;
+            get => _selectedProduct;
             set
             {
-                _product_id = value;
-                OnPropertyChanged("Product_id");
+                _selectedProduct = value;
+                OnPropertyChanged("SelectedProduct");
             }
         }
 
-        private int _customer_id = 0; ////////////// нужны ли?
-        public int Customer_id
+        private ObservableCollection<CustomerDTO> _customerList = new ObservableCollection<CustomerDTO>();
+        public ObservableCollection<CustomerDTO> CustomerList { get => _customerList; set { _customerList = value; OnPropertyChanged("CustomerList"); } }
+
+        private CustomerService customerService;
+
+        private CustomerDTO _selectedCustomer;
+        public CustomerDTO SelectedCustomer
         {
-            get => _customer_id;
+            get => _selectedCustomer;
             set
             {
-                _customer_id = value;
-                OnPropertyChanged("Customer_id");
+                _selectedCustomer = value;
+                OnPropertyChanged("SelectedCustomer");
             }
         }
 
-        private int _state_Type_id = 0; ////////////// нужны ли?
-        public int State_Type_id
+        private ObservableCollection<State_TypeDTO> _state_TypeList = new ObservableCollection<State_TypeDTO>();
+        public ObservableCollection<State_TypeDTO> State_TypeList { get => _state_TypeList; set { _state_TypeList = value; OnPropertyChanged("State_TypeList"); } }
+
+        private CustomerService state;
+
+        private State_TypeDTO _selectedCustomer;
+        public State_TypeDTO SelectedCustomer
         {
-            get => _state_Type_id;
+            get => _selectedCustomer;
             set
             {
-                _state_Type_id = value;
-                OnPropertyChanged("State_Type_id");
+                _selectedCustomer = value;
+                OnPropertyChanged("SelectedCustomer");
             }
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
         private ObservableCollection<OrderDTO> _orderList = new ObservableCollection<OrderDTO>();
         public ObservableCollection<OrderDTO> OrderList { get => _orderList; set { _orderList = value; OnPropertyChanged("OrderList"); } }
 
@@ -77,6 +130,8 @@ namespace Workshop.App.ViewModels
         public async Task Fetch()
         {
             OrderList = new ObservableCollection<OrderDTO>(await orderService.GetAll());
+            ProductList = new ObservableCollection<ProductDTO>(await productService.GetAll());
+            CustomerList = new ObservableCollection<CustomerDTO>(await customerService.GetAll());
         }
 
 

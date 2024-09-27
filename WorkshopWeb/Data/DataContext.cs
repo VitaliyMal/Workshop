@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Workshop.Server.Entity;
 using WorkshopWeb.Entity;
+using Workshop.Server.DTOs.State_TypeDTOs;
 
 namespace Workshop.Server.Data
 {
@@ -85,6 +86,8 @@ namespace Workshop.Server.Data
             }
             );
         }
+        public DbSet<Workshop.Server.DTOs.State_TypeDTOs.State_TypeDTO> State_TypeDTO { get; set; } = default!;
+        public DbSet<Workshop.Server.Entity.State_Type> State_Type { get; set; } = default!;
 
     }
 }

@@ -3,6 +3,7 @@ using System.Windows;
 using Workshop.App.Core;
 //using Workshop.Core.Entity;
 using Workshop.Core.Service;
+using Workshop.Server.DTOs.Ingredient_TypeDTOs;
 using Workshop.Server.DTOs.IngredientDTOs;
 
 namespace Workshop.App.ViewModels
@@ -53,14 +54,29 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private int _ingredientType_id = 0; // не нужно, пробуем сюда подавать VM и в остальных так же
-        public int IngredientType_id
+        //private int _ingredientType_id = 0; // не нужно, пробуем сюда подавать VM и в остальных так же
+        //public int IngredientType_id
+        //{
+        //    get => _ingredientType_id;
+        //    set
+        //    {
+        //        _ingredientType_id = value;
+        //        OnPropertyChanged("IngredientType_id");
+        //    }
+        //}
+        private ObservableCollection<Ingredient_TypeDTO> _ingredientTypeTitleList = new ObservableCollection<Ingredient_TypeDTO>();
+        public ObservableCollection<Ingredient_TypeDTO> IngredientTypeTitleList { get => _ingredientTypeTitleList; set { _ingredientTypeTitleList = value; OnPropertyChanged("IngredientTypeTitleList"); } }
+
+        private Ingredient_TypeService ingredient_TypeService;
+
+        private Ingredient_TypeDTO _selectedIngredient_Type;
+        public Ingredient_TypeDTO SelectedIngredient_Type
         {
-            get => _ingredientType_id;
+            get => _selectedIngredient_Type;
             set
             {
-                _ingredientType_id = value;
-                OnPropertyChanged("IngredientType_id");
+                _selectedIngredient_Type = value;
+                OnPropertyChanged("SelectedIngredient_Type");
             }
         }
 
@@ -89,6 +105,7 @@ namespace Workshop.App.ViewModels
         public async Task Fetch()
         {
             IngredientList = new ObservableCollection<IngredientDTO>(await ingredientService.GetAll());
+            IngredientTypeTitleList = new ObservableCollection<Ingredient_TypeDTO>(await ingredient_TypeService.GetAll());
         }
 
         private AsyncRelayCommand addCommand;
@@ -102,10 +119,12 @@ namespace Workshop.App.ViewModels
                           {
                               try
                               {
-                                  await ingredientService.Create(
-                                      new IngredientDTO(0, Title, Amount, MinimalAmount, Cost, IngredientType_id)
-                                      );
-                                  await Fetch();
+                                  if (SelectedIngredient_Type != null) // проверка выбора не пустого поля
+                                  {
+                                      await ingredientService.Create(
+                                          new IngredientDTO(0, Title, Amount, MinimalAmount, Cost, SelectedIngredient_Type.Id));
+                                      await Fetch();
+                                  }
                               }
                               catch (Exception ex)
                               {
@@ -144,24 +163,27 @@ namespace Workshop.App.ViewModels
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
                       {
-                          try
+                          if (SelectedIngredient_Type != null) // проверка выбора не пустого поля
                           {
-                              await ingredientService.Update(
-                                new UpdateIngredientDTO(
-                                    SelectedIngredient.Id,
-                                    Title,
-                                    Amount,
-                                    MinimalAmount,
-                                    Cost,
-                                    IngredientType_id
-                                    )
-                                );
-                              await Fetch();
-                          }
-                          catch (Exception ex)
-                          {
-                              MessageBox.Show(ex.Message);
-                              ////////////////////// логика когда срабатывает                              
+                              try
+                              {
+                                  await ingredientService.Update(
+                                    new UpdateIngredientDTO(
+                                        SelectedIngredient.Id,
+                                        Title,
+                                        Amount,
+                                        MinimalAmount,
+                                        Cost,
+                                        SelectedIngredient_Type.Id
+                                        )
+                                    );
+                                  await Fetch();
+                              }
+                              catch (Exception ex)
+                              {
+                                  MessageBox.Show(ex.Message);
+                                  ////////////////////// логика когда срабатывает                              
+                              }
                           }
                       }))
                   );

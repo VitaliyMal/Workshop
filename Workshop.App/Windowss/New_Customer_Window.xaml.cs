@@ -49,7 +49,7 @@ namespace Workshop.App
                     {
                         try
                         {
-                            vm.EditCommand.Execute(null);
+                            await vm.EditCommand.Execute(null);
                             MessageBox.Show("Данные изменены");
                             this.DialogResult = true;
 
