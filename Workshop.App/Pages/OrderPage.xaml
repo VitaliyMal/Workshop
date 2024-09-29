@@ -8,82 +8,88 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OrderPage">
 
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="Coral"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="buttonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Margin="{TemplateBinding Margin}" 
+                                Effect="{Binding ElementName=MainWindow, Path=Resources.DropShadow}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightCoral"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" ShadowDepth="5" BlurRadius="15" Opacity="0.5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <DropShadowEffect x:Key="DropShadow" Color="Black" ShadowDepth="0" BlurRadius="5" Opacity="0.3"/>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel 
-Grid.Column="1"
-HorizontalAlignment="Center"
-VerticalAlignment="Center"
->
-            <ListBox 
-    ItemsSource="{Binding OrderList}"
-    SelectedItem="{Binding SelectedOrder}"
-    >
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="40" Text="{Binding OrderId}"/>
-                            <TextBlock FontSize="40" Text="{Binding CustomerId}"/>
-                            <TextBlock FontSize="40" Text="{Binding State}"/>
-                            <TextBlock FontSize="40" Text="{Binding Products}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Заголовки столбцов -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock FontSize="30" FontWeight="Bold" Width="50" Text="ID" />
+                <TextBlock FontSize="30" FontWeight="Bold" Width="150" Text="Описание" />
+                <TextBlock FontSize="30" FontWeight="Bold" Width="150" Text="Изделие" />
+                <TextBlock FontSize="30" FontWeight="Bold" Width="200" Text="Заказчик" />
+                <TextBlock FontSize="30" FontWeight="Bold" Width="150" Text="Состояние" />                
+            </StackPanel>
+
+            <ScrollViewer Height="300">
+                <ListView ItemsSource="{Binding OrderList}" SelectedItem="{Binding SelectedOrder}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" Background="Transparent">
+                                <TextBlock FontSize="20" Text="{Binding Id}" Width="50"/>
+                                <TextBlock FontSize="20" Text="{Binding Description}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding SelectedProduct}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding SelectedCustomer}" Width="200"/>
+                                <TextBlock FontSize="20" Text="{Binding SelectedState_Type}" Width="150"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Resources>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="BorderBrush" Value="LightGray"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        </Style>
+                    </ListView.Resources>
+                </ListView>
+            </ScrollViewer>
         </StackPanel>
-        <StackPanel 
-Grid.Column="0"
-HorizontalAlignment="Center"
-VerticalAlignment="Center"
->
-            <TextBox 
-    FontSize="30" 
-    Background="LightGray"
-    Margin="10"
-    x:Name="Input"
-    Text="{Binding Input}"/>
-            <TextBlock 
-    FontSize="30" 
-    Background="LightGreen"
-    Margin="10"
-    x:Name="SelectedOrderTitle"
-    Text="{Binding Path=SelectedOrder.OrderId}"/>
-            <Button 
-    Margin="10 10 10 0"
-    Height="100"
-    Width="300"
-    Content="Добавить"
-    Background="Coral"
-    FontSize="30"
-    BorderBrush="Transparent"
-    x:Name="Add"
-    Command="{Binding AddCommand}"
-    />
-            <Button 
-    Margin="10 10 10 0"
-    Height="100"
-    Width="300"
-    Content="Удалить"
-    Background="Red"
-    FontSize="30"
-    BorderBrush="Transparent"
-    x:Name="Delete"
-    Command="{Binding DeleteCommand}"
-    />
-            <!--<Button 
-    Margin="10"
-    Height="100"
-    Width="300"
-    Content="Изменить"
-    Background="Yellow"
-    FontSize="30"
-    BorderBrush="Transparent"
-    x:Name="Edit"
-    Command="{Binding EditCommand}"
-    />-->
+
+        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Content="Добавить" x:Name="Add" Click="Add_Click_Window"/>
+            <Button Content="Удалить" x:Name="Delete" Click="Delete_Click"/>
+            <Button Content="Изменить" x:Name="Edit" Click="Edit_Click"/>
         </StackPanel>
     </Grid>
 </Page>

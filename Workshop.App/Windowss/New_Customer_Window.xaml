@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Workshop.App"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Customer_Window" Height="230" Width="400">
+        Title="Данные заказчика" Height="230" Width="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />

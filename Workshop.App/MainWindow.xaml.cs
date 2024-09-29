@@ -1,14 +1,16 @@
-﻿using System.Windows;
+﻿using MahApps.Metro.Controls;
+using System.Windows;
 using Workshop.App.ViewModels;
 using Workshop.Core.Data.Remote;
 using Workshop.Core.Service;
+
 
 namespace Workshop.App
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private CustomerViewModel customerViewModel = new CustomerViewModel(new CustomerService(new CustomerRemoteDataSource()));
         private IngredientViewModel ingredientViewModel = new IngredientViewModel(new IngredientService(new IngredientRemoteDataSource()));
