@@ -92,13 +92,13 @@ namespace Workshop.App.ViewModels
 
         private CustomerService state;
 
-        private State_TypeDTO _selectedCustomer;
-        public State_TypeDTO SelectedCustomer
+        private State_TypeDTO _selectedState_Type;
+        public State_TypeDTO SelectedState_Type
         {
-            get => _selectedCustomer;
+            get => _selectedState_Type;
             set
             {
-                _selectedCustomer = value;
+                _selectedState_Type = value;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
@@ -147,7 +147,7 @@ namespace Workshop.App.ViewModels
                               try
                               {
                                   await orderService.Create(
-                                      new OrderDTO(0, Description, Product_id, Customer_id, State_Type_id)
+                                      new OrderDTO(0, Description, SelectedProduct.Id, SelectedCustomer.Id, SelectedState_Type.Id)
                                       );
                                   await Fetch();
                               }
@@ -196,9 +196,9 @@ namespace Workshop.App.ViewModels
                                 new UpgradeOrderDTO(
                                     SelectedOrder.Id,
                                     Description,
-                                    Product_id,
-                                    Customer_id,
-                                    State_Type_id
+                                    SelectedProduct.Id,
+                                    SelectedCustomer.Id,
+                                    SelectedState_Type.Id
                                     )
                                 );
                               await Fetch();
