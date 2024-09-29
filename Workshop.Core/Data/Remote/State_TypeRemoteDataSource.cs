@@ -28,65 +28,65 @@ namespace Workshop.Core.Data.Remote
         {
             State_TypeDTO state_Type = null;
 
-            HttpResponseMessage response = await client.GetAsync($"api/IngredientType/{id}");
+            HttpResponseMessage response = await client.GetAsync($"api/State_Type/{id}");
             if (response.IsSuccessStatusCode)
             {
-                ingredient_Type = DataSerializer.Deserialize<State_TypeDTO>(
+                state_Type = DataSerializer.Deserialize<State_TypeDTO>(
                     await response.Content.ReadAsStringAsync());
             }
-            return ingredient_Type;
+            return state_Type;
         }
 
-        public async Task<List<Ingredient_TypeDTO>> GetIngredient_Types()
+        public async Task<List<State_TypeDTO>> GetState_Types()
         {
 
             HttpResponseMessage response = await client.GetAsync(
-                "api/IngredientType");
+                "api/State_Type");
             response.EnsureSuccessStatusCode();
 
-            List<Ingredient_TypeDTO> Ingredient_TypeResponse = new List<Ingredient_TypeDTO>();
+            List<State_TypeDTO> State_TypeResponse = new List<State_TypeDTO>();
             if (response.IsSuccessStatusCode)
             {
-                Ingredient_TypeResponse = DataSerializer.Deserialize<List<Ingredient_TypeDTO>>(
+                State_TypeResponse = DataSerializer.Deserialize<List<State_TypeDTO>>(
                     await response.Content.ReadAsStringAsync());
             }
-            return Ingredient_TypeResponse;
+            return State_TypeResponse;
         }
 
-        public async Task PostIngredient_Type(AddIngredient_TypeDTO ingredient_Type)
+        public async Task PostState_Type(AddState_TypeDTO state_Type)
         {
 
             HttpResponseMessage response = await client.PostAsync(
-                "api/IngredientType", JsonContent.Create(ingredient_Type));
+                "api/State_Type", JsonContent.Create(state_Type));
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Добавление типа ингредиента завершилось с ошибкой!");
+                throw new Exception("Добавление типа состояния завершилось с ошибкой!");
             }
             return;
         }
 
-        public async Task UpdateIngredient_Type(UpgradeIngredient_TypeDTO ingredient_Type)
+        public async Task UpdateState_Type(UpgradeState_TypeDTO state_Type)
         {
-            var json = JsonContent.Create(ingredient_Type);
+            var json = JsonContent.Create(state_Type);
 
             HttpResponseMessage response = await client.PutAsync(
-                $"api/IngredientType", json);
+                $"api/State_Type", json);
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Изменение типа ингредиента завершилось с ошибкой!");
+                throw new Exception("Изменение типа состояния завершилось с ошибкой!");
             }
             return;
         }
 
-        public async Task DeleteIngredientType(int id)
+        public async Task DeleteState_Type(int id)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"api/IngredientType/{id}");
+            HttpResponseMessage response = await client.DeleteAsync($"api/State_Type/{id}");
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Удаление заказчика завершилось с ошибкой!");
+                throw new Exception("Удаление типа состояния завершилось с ошибкой!");
             }
             return;
         }

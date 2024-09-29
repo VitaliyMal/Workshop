@@ -5,42 +5,43 @@ using System.Text;
 using System.Threading.Tasks;
 using Workshop.Core.Data.Remote;
 using Workshop.Server.DTOs.Ingredient_TypeDTOs;
+using Workshop.Server.DTOs.State_TypeDTOs;
 
 namespace Workshop.Core.Service
 {
     public class State_TypeService
     {
-        private Ingredient_TypeRemoteDataSource _dataSource;
+        private State_TypeRemoteDataSource _dataSource;
 
-        public State_TypeService(Ingredient_TypeRemoteDataSource dataSource)
+        public State_TypeService(State_TypeRemoteDataSource dataSource)
         {
             _dataSource = dataSource;
         }
 
 
-        public async Task<List<Ingredient_TypeDTO>> GetAll()
+        public async Task<List<State_TypeDTO>> GetAll()
         {
-            return await _dataSource.GetIngredient_Types();
+            return await _dataSource.GetState_Types();
         }
 
-        public async Task<Ingredient_TypeDTO?> Get(int id)
+        public async Task<State_TypeDTO?> Get(int id)
         {
-            foreach (Ingredient_TypeDTO ingredient_Type in await _dataSource.GetIngredient_Types())
+            foreach (State_TypeDTO state_Type in await _dataSource.GetState_Types())
             {
-                if (ingredient_Type.Id == id)
+                if (state_Type.Id == id)
                 {
-                    return ingredient_Type;
+                    return state_Type;
                 }
             }
             return null;
         }
 
-        public async Task Create(Ingredient_TypeDTO ingredient_Type)
+        public async Task Create(State_TypeDTO state_Type)
         {
             try
             {
-                await _dataSource.PostIngredient_Type(new AddIngredient_TypeDTO(
-                    ingredient_Type.IngredientTypeTitle
+                await _dataSource.PostState_Type(new AddState_TypeDTO(
+                    state_Type.State_Type_Title
                     ));
             }
             catch (Exception ex)
@@ -53,7 +54,7 @@ namespace Workshop.Core.Service
         {
             try
             {
-                await _dataSource.DeleteIngredientType(id);
+                await _dataSource.DeleteState_Type(id);
             }
             catch (Exception ex)
             {
@@ -61,13 +62,13 @@ namespace Workshop.Core.Service
             }
         }
 
-        public async Task Update(UpgradeIngredient_TypeDTO ingredient_Type)
+        public async Task Update(UpgradeState_TypeDTO state_Type)
         {
             try
             {
-                await _dataSource.UpdateIngredient_Type(new UpgradeIngredient_TypeDTO(
-                    ingredient_Type.id,
-                    ingredient_Type.IngredientTypeTitle
+                await _dataSource.UpdateState_Type(new UpgradeState_TypeDTO(
+                    state_Type.id,
+                    state_Type.State_Type_Title
                     ));
             }
             catch (Exception ex)

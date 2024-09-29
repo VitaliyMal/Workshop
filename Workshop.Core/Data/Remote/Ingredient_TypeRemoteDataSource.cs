@@ -81,7 +81,7 @@ namespace Workshop.Core.Data.Remote
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Удаление заказчика завершилось с ошибкой!");
+                throw new Exception("Удаление типа ингредиента завершилось с ошибкой!");
             }
             return;
         }
