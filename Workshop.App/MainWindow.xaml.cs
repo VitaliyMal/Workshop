@@ -18,6 +18,7 @@ namespace Workshop.App
         private OrderService orderService = new OrderService(new OrderRemoteDataSource());
         private ProductService productService = new ProductService(new ProductRemoteDataSource());
         private RecipeService recipeService = new RecipeService(new RecipeRemoteDataSource());
+        private State_TypeService state_TypeService = new State_TypeService(new State_TypeRemoteDataSource());
         private CustomerViewModel customerViewModel;
         private Ingredient_TypeViewModel Ingredient_TypeViewModel;
         private IngredientViewModel ingredientViewModel;
@@ -32,7 +33,7 @@ namespace Workshop.App
             Ingredient_TypeViewModel = new Ingredient_TypeViewModel(ingredient_typeService);
             ingredientViewModel = new IngredientViewModel(ingredientService, ingredient_typeService);
             customerViewModel = new CustomerViewModel(customerService);
-            orderViewModel = new OrderViewModel(orderService,productService,customerService);
+            orderViewModel = new OrderViewModel(orderService,productService,customerService,state_TypeService);
             productViewModel = new ProductViewModel(productService);
             RecipeViewModel = new RecipeViewModel(recipeService);
             InitializeComponent();

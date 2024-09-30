@@ -90,7 +90,7 @@ namespace Workshop.App.ViewModels
         private ObservableCollection<State_TypeDTO> _state_TypeList = new ObservableCollection<State_TypeDTO>();
         public ObservableCollection<State_TypeDTO> State_TypeList { get => _state_TypeList; set { _state_TypeList = value; OnPropertyChanged("State_TypeList"); } }
 
-        private CustomerService state;
+        private State_TypeService state_TypeService;
 
         private State_TypeDTO _selectedState_Type;
         public State_TypeDTO SelectedState_Type
@@ -99,7 +99,7 @@ namespace Workshop.App.ViewModels
             set
             {
                 _selectedState_Type = value;
-                OnPropertyChanged("SelectedCustomer");
+                OnPropertyChanged("SelectedState_Type");
             }
         }
 
@@ -121,11 +121,12 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        public OrderViewModel(OrderService service, ProductService productService, CustomerService customerService)
+        public OrderViewModel(OrderService service, ProductService productService, CustomerService customerService, State_TypeService state_TypeService)
         {
             orderService = service;
             this.productService = productService;
             this.customerService = customerService;
+            this.state_TypeService= state_TypeService;
             Task.Run(() => Fetch());
         }
 
@@ -134,6 +135,7 @@ namespace Workshop.App.ViewModels
             OrderList = new ObservableCollection<OrderDTO>(await orderService.GetAll());
             ProductList = new ObservableCollection<ProductDTO>(await productService.GetAll());
             CustomerList = new ObservableCollection<CustomerDTO>(await customerService.GetAll());
+            State_TypeList = new ObservableCollection<State_TypeDTO>(await state_TypeService.GetAll());
         }
 
 

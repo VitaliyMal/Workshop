@@ -31,7 +31,7 @@ namespace Workshop.App
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            _viewModel.DeleteCommand.Execute(null);
+            //_viewModel.DeleteCommand.Execute(null);
         }
     }
 }
