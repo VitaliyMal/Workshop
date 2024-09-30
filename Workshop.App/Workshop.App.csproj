@@ -9,16 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MahApps\**" />
+    <EmbeddedResource Remove="MahApps\**" />
+    <None Remove="MahApps\**" />
+    <Page Remove="MahApps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Workshop.Core\Workshop.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MahApps\" />
   </ItemGroup>
 
 </Project>

@@ -121,9 +121,11 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        public OrderViewModel(OrderService service)
+        public OrderViewModel(OrderService service, ProductService productService, CustomerService customerService)
         {
             orderService = service;
+            this.productService = productService;
+            this.customerService = customerService;
             Task.Run(() => Fetch());
         }
 

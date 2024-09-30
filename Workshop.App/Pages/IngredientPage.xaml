@@ -69,12 +69,12 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5" Background="Transparent">
-                                <TextBlock FontSize="20" Text="{Binding Id}" Width="50"/>
-                                <TextBlock FontSize="20" Text="{Binding Title}" Width="150"/>
-                                <TextBlock FontSize="20" Text="{Binding Amount}" Width="150"/>
-                                <TextBlock FontSize="20" Text="{Binding MinimalAmount}" Width="200"/>
-                                <TextBlock FontSize="20" Text="{Binding Cost}" Width="150"/>
-                                <TextBlock FontSize="20" Text="{Binding SelectedIngredient_Type.Id}" Width="250"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientDTO.Id}" Width="50"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientDTO.Title}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientDTO.Amount}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientDTO.MinimalAmount}" Width="200"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientDTO.Cost}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=ingredientTypeDTO.IngredientTypeTitle}" Width="150"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -86,6 +86,12 @@
                     </ListView.Resources>
                 </ListView>
             </ScrollViewer>
+            <!--<ComboBox 
+    FontSize="20" 
+    Width="250" 
+    ItemsSource="{Binding IngredientTypeTitleList}"  
+    SelectedItem="{Binding SelectedIngredient_Type}" 
+    DisplayMemberPath="IngredientTypeTitle"/>-->
         </StackPanel>
 
         <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">

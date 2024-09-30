@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using Workshop.App.Core;
+using Workshop.App.Entity;
+
 //using Workshop.Core.Entity;
 using Workshop.Core.Service;
 using Workshop.Server.DTOs.Ingredient_TypeDTOs;
@@ -65,7 +67,10 @@ namespace Workshop.App.ViewModels
         //    }
         //}
         private ObservableCollection<Ingredient_TypeDTO> _ingredientTypeTitleList = new ObservableCollection<Ingredient_TypeDTO>();
-        public ObservableCollection<Ingredient_TypeDTO> IngredientTypeTitleList { get => _ingredientTypeTitleList; set { _ingredientTypeTitleList = value; OnPropertyChanged("IngredientTypeTitleList"); } }
+        public ObservableCollection<Ingredient_TypeDTO> IngredientTypeTitleList 
+        { 
+            get => _ingredientTypeTitleList; 
+            set { _ingredientTypeTitleList = value; OnPropertyChanged("IngredientTypeTitleList"); } }
 
         private Ingredient_TypeService ingredient_TypeService;
 
@@ -80,13 +85,13 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        private ObservableCollection<IngredientDTO> _ingredientList = new ObservableCollection<IngredientDTO>();
-        public ObservableCollection<IngredientDTO> IngredientList { get => _ingredientList; set { _ingredientList = value; OnPropertyChanged("IngredientList"); } }
+        private ObservableCollection<Ingredient> _ingredientList = new ObservableCollection<Ingredient>();
+        public ObservableCollection<Ingredient> IngredientList { get => _ingredientList; set { _ingredientList = value; OnPropertyChanged("IngredientList"); } }
 
         private IngredientService ingredientService;
 
-        private IngredientDTO _selectedIngredient;
-        public IngredientDTO SelectedIngredient
+        private Ingredient _selectedIngredient;
+        public Ingredient SelectedIngredient
         {
             get => _selectedIngredient;
             set
@@ -96,16 +101,17 @@ namespace Workshop.App.ViewModels
             }
         }
 
-        public IngredientViewModel(IngredientService service)
+        public IngredientViewModel(IngredientService service, Ingredient_TypeService ingredient_TypeService)
         {
             ingredientService = service;
+            this.ingredient_TypeService = ingredient_TypeService;
             Task.Run(() => Fetch());
         }
 
         public async Task Fetch()
         {
-            IngredientList = new ObservableCollection<IngredientDTO>(await ingredientService.GetAll());
             IngredientTypeTitleList = new ObservableCollection<Ingredient_TypeDTO>(await ingredient_TypeService.GetAll());
+            IngredientList = new ObservableCollection<Ingredient>((await ingredientService.GetAll()).Select(x=>new Ingredient(x,IngredientTypeTitleList.First(y=>y.Id==x.IngredientType_id))));
         }
 
         private AsyncRelayCommand addCommand;
@@ -146,7 +152,7 @@ namespace Workshop.App.ViewModels
                         async () =>
                         {
                             await ingredientService.Delete(
-                                SelectedIngredient.Id
+                                SelectedIngredient.ingredientDTO.Id
                                     );
                             await Fetch();
                         }))
@@ -169,7 +175,7 @@ namespace Workshop.App.ViewModels
                               {
                                   await ingredientService.Update(
                                     new UpdateIngredientDTO(
-                                        SelectedIngredient.Id,
+                                        SelectedIngredient.ingredientDTO.Id,
                                         Title,
                                         Amount,
                                         MinimalAmount,
