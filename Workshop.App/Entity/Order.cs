@@ -12,8 +12,12 @@ namespace Workshop.App.Entity
 {
     public class Order
     {
-        public Order() 
-        { 
+        public Order(OrderDTO x,ProductDTO productDTO,CustomerDTO customerDTO,State_TypeDTO state_TypeDTO) 
+        {
+            orderDTO = x;
+            productDTO = productDTO;
+            customerDTO = customerDTO;
+            state_TypeDTO = state_TypeDTO
         }
 
         public OrderDTO orderDTO {  get; set; }

@@ -68,11 +68,11 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5" Background="Transparent">
-                                <TextBlock FontSize="20" Text="{Binding Id}" Width="50"/>
-                                <TextBlock FontSize="20" Text="{Binding Description}" Width="150"/>
-                                <TextBlock FontSize="20" Text="{Binding SelectedProduct}" Width="150"/>
-                                <TextBlock FontSize="20" Text="{Binding SelectedCustomer}" Width="200"/>
-                                <TextBlock FontSize="20" Text="{Binding SelectedState_Type}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=orderDTO.Id}" Width="50"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=orderDTO.Description}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=productDTO.Name}" Width="150"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=customerDTO.LastName}" Width="200"/>
+                                <TextBlock FontSize="20" Text="{Binding Path=state_TypeDTO.State_Type_Title}" Width="150"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -87,7 +87,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button Content="Добавить" x:Name="Add" Click="Add_Click_Window"/>
+            <Button Content="Добавить" x:Name="Add" Click="Add_Click"/>
             <Button Content="Удалить" x:Name="Delete" Click="Delete_Click"/>
             <Button Content="Изменить" x:Name="Edit" Click="Edit_Click"/>
         </StackPanel>

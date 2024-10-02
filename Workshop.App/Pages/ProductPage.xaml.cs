@@ -17,7 +17,7 @@ namespace Workshop.App
             DataContext = _viewModel;
             InitializeComponent();
         }
-        private void Add_Click_Window(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             //New_Customer_Window new_Customer_Window = new New_Customer_Window(_viewModel, FormType.Add);
             //Nullable<bool> dialogResult = new_Customer_Window.ShowDialog();

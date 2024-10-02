@@ -19,7 +19,7 @@ namespace Workshop.App
             InitializeComponent();
         }
 
-        private void Add_Click_Window(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             Order_Window order_Window = new Order_Window(_viewModel, FormType.Add);
             Nullable<bool> dialogResult = order_Window.ShowDialog();

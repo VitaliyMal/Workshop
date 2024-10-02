@@ -132,10 +132,16 @@ namespace Workshop.App.ViewModels
 
         public async Task Fetch()
         {
-            OrderList = new ObservableCollection<OrderDTO>(await orderService.GetAll());
             ProductList = new ObservableCollection<ProductDTO>(await productService.GetAll());
             CustomerList = new ObservableCollection<CustomerDTO>(await customerService.GetAll());
             State_TypeList = new ObservableCollection<State_TypeDTO>(await state_TypeService.GetAll());
+
+            OrderList = new ObservableCollection<Order>((await orderService.GetAll()).Select(
+                x=> new Order(x,
+                ProductList.First(y=>y,Id=x.Product_id),
+                CustomerList.First(w=>w,Id=x.Customer_id),
+                State_TypeList.First(z=>z,Id=x.State_Type_id)
+                )));
         }
 
 
@@ -150,10 +156,12 @@ namespace Workshop.App.ViewModels
                           {
                               try
                               {
+                                if ((SelectedProduct !=null)&&(SelectedCustomer !=null)&&(SelectedState_Type !=null)){
                                   await orderService.Create(
                                       new OrderDTO(0, Description, SelectedProduct.Id, SelectedCustomer.Id, SelectedState_Type.Id)
                                       );
                                   await Fetch();
+                                  }
                               }
                               catch (Exception ex)
                               {
@@ -176,7 +184,7 @@ namespace Workshop.App.ViewModels
                         async () =>
                         {
                             await orderService.Delete(
-                                SelectedOrder.Id
+                                SelectedOrder.orderDTO.Id
                                     );
                             await Fetch();
                         }))
@@ -194,11 +202,12 @@ namespace Workshop.App.ViewModels
                   (editCommand = new AsyncRelayCommand(() => Task.Run(
                       async () =>
                       {
+                        if ((SelectedProduct !=null)&&(SelectedCustomer !=null)&&(SelectedState_Type !=null)){
                           try
                           {
                               await orderService.Update(
                                 new UpgradeOrderDTO(
-                                    SelectedOrder.Id,
+                                    SelectedOrder.orderDTO.Id,
                                     Description,
                                     SelectedProduct.Id,
                                     SelectedCustomer.Id,
@@ -212,6 +221,7 @@ namespace Workshop.App.ViewModels
                               MessageBox.Show(ex.Message);
                               ////////////////////// логика когда срабатывает 
                           }
+                        }
                       }))
                   );
             }
